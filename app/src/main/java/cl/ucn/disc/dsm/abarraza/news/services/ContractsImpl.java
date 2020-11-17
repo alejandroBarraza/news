@@ -28,4 +28,14 @@ public class ContractsImpl implements Contracts {
         //TODO :add the faker news to the list
         return news;
     }
+
+    /**
+     * Save on News intro the system
+     *
+     * @param news to save
+     */
+    @Override
+    public void saveNews(News news) {
+
+    }
 }
