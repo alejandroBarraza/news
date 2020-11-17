@@ -20,39 +20,39 @@ public final class News {
     /**
      * unique id
      */
-    private long id;
+    private final long id;
     /**
      * the title
      */
-    private String title;
+    private final String title;
     /**
      * the source
      */
-    private String source;
+    private final String source;
     /**
      * the author
      */
-    private String author;
+    private final String author;
     /**
      * the url
      */
-    private String url;
+    private final String url;
     /**
      * the url of image
      */
-    private String urlImage;
+    private final String urlImage;
     /**
      * the description
      */
-    private String description;
+    private final String description;
     /**
      * the content
      */
-    private String content;
+    private final String content;
     /**
      * the date of publish
      */
-    private ZonedDateTime publishedAt;
+    private final ZonedDateTime publishedAt;
 
     /**
      * constructor
@@ -68,6 +68,7 @@ public final class News {
      */
 
     public News(long id, String title, String source, String author, String url, String urlImage, String description, String content, ZonedDateTime publishedAt) {
+        //TODO:Add the validation.
         this.id = id;
         this.title = title;
         this.source = source;
