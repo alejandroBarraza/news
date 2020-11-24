@@ -10,7 +10,11 @@
 
 package cl.ucn.disc.dsm.abarraza.news.model;
 
+import net.openhft.hashing.LongHashFunction;
+
 import org.threeten.bp.ZonedDateTime;
+
+import cl.ucn.disc.dsm.abarraza.news.utils.Validation;
 
 /**
  * the domain model news
@@ -20,7 +24,7 @@ public final class News {
     /**
      * unique id
      */
-    private final long id;
+    private final Long id;
     /**
      * the title
      */
@@ -56,7 +60,7 @@ public final class News {
 
     /**
      * constructor
-     * @param id
+     //* @param id
      * @param title
      * @param source
      * @param author
@@ -67,16 +71,33 @@ public final class News {
      * @param publishedAt
      */
 
-    public News(long id, String title, String source, String author, String url, String urlImage, String description, String content, ZonedDateTime publishedAt) {
-        //TODO:Add the validation.
-        this.id = id;
+    public News(String title, String source, String author, String url, String urlImage, String description, String content, ZonedDateTime publishedAt) {
+        //validation of title
+        Validation.minSize(title,2 , "title");
         this.title = title;
+
+        ///validation of source
+        Validation.minSize(source,2,"source");
         this.source = source;
+
+        //validation of author
+        Validation.minSize(author,2,"author");
         this.author = author;
+
+        //apply the xxHash function.
+        this.id= LongHashFunction.xx().hashChars(title + source + author);
+
+
         this.url = url;
         this.urlImage = urlImage;
         this.description = description;
+
+        //validation of content
+        Validation.notNull(content,"content");
         this.content = content;
+
+        //validation published
+        Validation.notNull(publishedAt,"publishedAt");
         this.publishedAt = publishedAt;
     }
 
