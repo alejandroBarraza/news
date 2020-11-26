@@ -27,11 +27,11 @@ public final  class Validation {
 
     /**
      * check nullity
-     * @param value to check
+     * @param o to check
      * @param message to throw in case of nullity.
      */
-    public static void notNull(Object value, String message ) {
-        if (value == null) {
+    public static void notNull(Object o, String message ) {
+        if (o == null) {
             throw new IllegalArgumentException("argument was null " + message);
         }
     }
