@@ -90,6 +90,9 @@ public final class News {
 
         this.url = url;
         this.urlImage = urlImage;
+
+        //validation of description
+        Validation.notNull(content,"content");
         this.description = description;
 
         //validation of content
