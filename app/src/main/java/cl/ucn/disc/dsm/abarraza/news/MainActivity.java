@@ -10,9 +10,18 @@
 
 package cl.ucn.disc.dsm.abarraza.news;
 
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
+import java.util.List;
+
+import cl.ucn.disc.dsm.abarraza.news.model.News;
+import cl.ucn.disc.dsm.abarraza.news.services.ContractcImplNewsApi;
+import cl.ucn.disc.dsm.abarraza.news.services.Contracts;
 
 /**
  * the main class
@@ -21,6 +30,10 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
     /**
+     * the listview
+     */
+    protected ListView listView;
+    /**
      * On create
      * @param savedInstanceState used to realod the app
      */
@@ -28,5 +41,35 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.listView = findViewById(R.id.am_lv_news);
+
+        //Get the the news Async.
+        AsyncTask.execute(() ->{
+
+            // using the contracts to get the news..
+            Contracts contracts = new ContractcImplNewsApi("9d57a60918974e93bd6ffe30710629a5");
+
+            //get the News from NewsApi(internet).
+            List<News> listNews = contracts.retrieveNews(30);
+
+            //adapter to show the list of news.
+            ArrayAdapter<String> adapter = new ArrayAdapter(
+                    this, android.R.layout.simple_list_item_1,listNews
+            );
+
+            //set the adapter!
+            runOnUiThread(()->{
+                this.listView.setAdapter(adapter);
+
+            });
+
+
+
+
+        });
+
+
+
     }
 }
