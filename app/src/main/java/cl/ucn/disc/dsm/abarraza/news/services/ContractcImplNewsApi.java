@@ -23,6 +23,11 @@ import org.threeten.bp.ZonedDateTime;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import cl.ucn.disc.dsm.abarraza.news.model.News;
 import cl.ucn.disc.dsm.abarraza.news.utils.Validation;
@@ -63,7 +68,13 @@ public class ContractcImplNewsApi implements Contracts {
 
             }
             //return the list of news.
-            return news;
+            return news.stream()
+                    //remove the duplicate by id
+                    .filter(distinById(News::getId))
+                    //sort the stream by pusblishdedAt
+                    .sorted((k1,k2)->k2.getPublishedAt().compareTo(k1.getPublishedAt()))
+                    //Return the stream to list.
+                    .collect(Collectors.toList());
         } catch (IOException e) {
             System.out.println("error" + e);
             //Inner exception
@@ -72,6 +83,16 @@ public class ContractcImplNewsApi implements Contracts {
 
     }
 
+    /**
+     * filter the stream.
+     * @param idExtractor
+     * @param <T>  news to fiter
+     * @return
+     */
+    private static <T> Predicate<T> distinById(Function<? super T, ?> idExtractor){
+        Map<Object,Boolean> seen = new ConcurrentHashMap<>();
+        return t -> seen.putIfAbsent(idExtractor.apply(t),Boolean.TRUE)==null;
+    }
     /**
      * articles to news.
      * @param article
@@ -86,7 +107,7 @@ public class ContractcImplNewsApi implements Contracts {
         ZonedDateTime publishedAt = ZonedDateTime.parse(article.getPublishedAt()).withZoneSameInstant(ZoneId.of("-3"));
 
 
-        if(article.getAuthor() == null){
+        if(article.getAuthor() == null || article.getAuthor().length() == 0){
             article.setAuthor("no author");
         }
         if(article.getDescription() == null || article.getDescription().length()==0){
