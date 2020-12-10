@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        this.listView = findViewById(R.id.am_lv_news);
+        //remove this line
+        //this.listView = findViewById(R.id.am_lv_news);
 
         //Get the the news Async.
         AsyncTask.execute(() ->{
@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
+
 
 
 
