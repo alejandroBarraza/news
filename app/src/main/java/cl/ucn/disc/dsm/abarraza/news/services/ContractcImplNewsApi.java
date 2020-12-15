@@ -85,13 +85,13 @@ public class ContractcImplNewsApi implements Contracts {
 
     /**
      * filter the stream.
-     * @param idExtractor
+     * @param keyExtractor
      * @param <T>  news to fiter
      * @return
      */
-    private static <T> Predicate<T> distinById(Function<? super T, ?> idExtractor){
+    private static <T> Predicate<T> distinById(Function<? super T, ?> keyExtractor){
         Map<Object,Boolean> seen = new ConcurrentHashMap<>();
-        return t -> seen.putIfAbsent(idExtractor.apply(t),Boolean.TRUE)==null;
+        return t -> seen.putIfAbsent(keyExtractor.apply(t),Boolean.TRUE)==null;
     }
     /**
      * articles to news.
@@ -109,6 +109,7 @@ public class ContractcImplNewsApi implements Contracts {
 
         if(article.getAuthor() == null || article.getAuthor().length() == 0){
             article.setAuthor("no author");
+
         }
         if(article.getDescription() == null || article.getDescription().length()==0){
             article.setDescription("no author");
