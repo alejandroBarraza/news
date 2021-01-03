@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         //remove this line
         //this.listView = findViewById(R.id.am_lv_news);
+        //estoy aqui
 
         //Get the the news Async.
         AsyncTask.execute(() ->{
