@@ -147,4 +147,6 @@ public final class News {
     public String toString() {
         return this.title;
     }
+
+    //Aqui Hanfox
 }
