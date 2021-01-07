@@ -10,8 +10,12 @@
 
 package cl.ucn.disc.dsm.abarraza.news;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //the toolbar
-        this.setSupportActionBar(findViewById(R.id.am_t_toolbar));
+        //this.setSupportActionBar(findViewById(R.id.am_t_toolbar)); //FIX
 
         //the fast adapter
         ModelAdapter<News, NewsItem> newsAdapter = new ModelAdapter<>(NewsItem::new);
@@ -66,38 +70,41 @@ public class MainActivity extends AppCompatActivity {
 
         //remove this line
         //this.listView = findViewById(R.id.am_lv_news);
-        //estoy aqui
 
         //Get the the news Async.
         AsyncTask.execute(() ->{
 
             // using the contracts to get the news..
-            Contracts contracts = new ContractcImplNewsApi("9d57a60918974e93bd6ffe30710629a5");
+            Contracts contracts = new ContractcImplNewsApi("ca0f046705c04b55b6c9305bc4c54b48");
 
+            if (!isConnected(this)) {
+                Log.w("Error", "Conecte el dispositivo a internet");
+            }else{
+                //get the News from NewsApi(internet).
+                List<News> listNews = contracts.retrieveNews(30);
 
+                //set the adapter!
+                runOnUiThread(() -> {
+                    newsAdapter.add(listNews);
 
-            //get the News from NewsApi(internet).
-            List<News> listNews = contracts.retrieveNews(30);
-
-            //DELETE THIS SCOPE IN THE FUTURE
-            //adapter to show the list of news.
-            //ArrayAdapter<String> adapter = new ArrayAdapter(
-              //      this, android.R.layout.simple_list_item_1,listNews
-            //);
-
-            //set the adapter!
-            runOnUiThread(()->{
-                newsAdapter.add(listNews);
-
-            });
-
-
-
-
+                });
+            }
         });
+    }
 
+    /**
+     * @param mainActivity Check Internet Connection
+     * @return
+     */
+    private boolean isConnected(MainActivity mainActivity) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) mainActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
 
+        NetworkInfo wifiConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileConn = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 
-
+        if((wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected())){
+            return true;
+        }
+        return false;
     }
 }
