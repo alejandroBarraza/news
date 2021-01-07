@@ -12,9 +12,12 @@ package cl.ucn.disc.dsm.abarraza.news;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,6 +51,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //dark mode switch.
+        Switch switch1 = findViewById(R.id.switch1);
+        switch1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked){
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }else{
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+        });
+
+
         //the toolbar
         this.setSupportActionBar(findViewById(R.id.am_t_toolbar));
 
@@ -62,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
+
+
+
 
 
         //remove this line
@@ -90,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 newsAdapter.add(listNews);
 
             });
+
 
 
 
