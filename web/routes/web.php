@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +19,4 @@ Route::get('/', function () {
 });
 Route::view('add','addmember');
 Route::view('addnews','addnews');
+Route::post('addnews',[NewsController::class, 'addData']);

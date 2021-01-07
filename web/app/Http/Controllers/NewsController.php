@@ -89,4 +89,17 @@ class NewsController extends Controller
     {
         //
     }
+
+    public function addData(Request $req)
+    {
+        $news= new News;
+        $news->title=$req->title;
+        $news->title=$req->source;
+        $news->title=$req->author;
+        $news->title=$req->url;
+        $news->title=$req->urlImage;
+        $news->title=$req->description;
+        $news->title=$req->content;
+        $news->title=$req->publishedAt;
+    }
 }
