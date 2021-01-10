@@ -101,6 +101,7 @@ class NewsController extends Controller
         $news->title=$req->description;
         $news->title=$req->content;
         $news->title=$req->publishedAt;
-        //TODO Continue with this function
+        $news->save();
+        return redirect('add');
     }
 }
