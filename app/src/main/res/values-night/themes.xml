@@ -1,16 +1,28 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.News" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.News" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowLightStatusBar">false</item>
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/textColorPrimary</item>
-        <item name="colorPrimaryVariant">@color/textColorPrimary</item>
+        <item name="colorPrimary">#6200EE</item>
+        <item name="colorPrimaryVariant">#3700B3</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/textColorSecondary</item>
-        <item name="colorSecondaryVariant">@color/textColorSecondary</item>
+        <item name="colorSecondary">#6200EE</item>
+        <item name="colorSecondaryVariant">#6200EE</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <!-- the Toolbar -->
+    <style name="Theme.News.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:background">#6200EE</item>
+        <item name="titleTextColor">@color/toolbarTitleTextColor</item>
+        <item name="subtitleTextColor">@color/toolbarSubtitleTextColor</item>
+        <item name="colorControlNormal">@color/windowBackground</item>
+        <item name="android:colorControlNormal">@color/windowBackground</item>
+        <item name="android:editTextColor">@android:color/white</item>
+        <item name="android:textColorHint">@color/windowBackground</item>
     </style>
 </resources>

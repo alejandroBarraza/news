@@ -15,10 +15,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,6 +54,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //dark mode switch.
+        Switch switch1 = findViewById(R.id.switch1);
+        switch1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked){
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }else{
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+        });
+
+
         //the toolbar
         this.setSupportActionBar(findViewById(R.id.am_t_toolbar)); //FIXME
 
@@ -66,6 +79,13 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
+
+
+
+
+
+        //remove this line
+        //this.listView = findViewById(R.id.am_lv_news);
 
         //Get the the news Async.
         AsyncTask.execute(() ->{
@@ -82,8 +102,26 @@ public class MainActivity extends AppCompatActivity {
                 //set the adapter!
                 runOnUiThread(() -> {
                     newsAdapter.add(listNews);
-                });
-            }
+
+            //get the News from NewsApi(internet).
+            List<News> listNews = contracts.retrieveNews(30);
+
+            //DELETE THIS SCOPE IN THE FUTURE
+            //adapter to show the list of news.
+            //ArrayAdapter<String> adapter = new ArrayAdapter(
+              //      this, android.R.layout.simple_list_item_1,listNews
+            //);
+
+            //set the adapter!
+            runOnUiThread(()->{
+                newsAdapter.add(listNews);
+
+            });
+
+
+
+
+
         });
     }
 
