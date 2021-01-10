@@ -118,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
             //set the adapter!
             runOnUiThread(()->{
                 newsAdapter.add(listNews);
-
             });
         });
     }
