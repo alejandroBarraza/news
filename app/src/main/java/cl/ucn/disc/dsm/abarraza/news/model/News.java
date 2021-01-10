@@ -89,7 +89,6 @@ public final class News {
         //apply the xxHash function.
         this.id= LongHashFunction.xx().hashChars(title + source + author);
 
-
         this.url = url;
         this.urlImage = urlImage;
 
@@ -147,4 +146,6 @@ public final class News {
     public String toString() {
         return this.title;
     }
+
+    //Aqui Hanfox
 }
