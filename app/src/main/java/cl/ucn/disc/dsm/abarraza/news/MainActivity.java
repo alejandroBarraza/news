@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //the toolbar
-        //this.setSupportActionBar(findViewById(R.id.am_t_toolbar)); //FIXME
+        this.setSupportActionBar(findViewById(R.id.am_t_toolbar)); //FIXME
 
         //the fast adapter
         ModelAdapter<News, NewsItem> newsAdapter = new ModelAdapter<>(NewsItem::new);
@@ -66,10 +66,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
-
-
-        //remove this line
-        //this.listView = findViewById(R.id.am_lv_news);
 
         //Get the the news Async.
         AsyncTask.execute(() ->{
@@ -86,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
                 //set the adapter!
                 runOnUiThread(() -> {
                     newsAdapter.add(listNews);
-
                 });
             }
         });
