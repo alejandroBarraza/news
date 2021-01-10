@@ -15,6 +15,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -45,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
      * the listview
      */
     protected ListView listView;
+
+    /**
+     * the listNews
+     */
+    List<News> listNews;
+
     /**
      * On create
      * @param savedInstanceState used to realod the app
@@ -64,9 +71,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         //the toolbar
+<<<<<<< HEAD
         this.setSupportActionBar(findViewById(R.id.am_t_toolbar)); //FIXME
+=======
+        this.setSupportActionBar(findViewById(R.id.am_t_toolbar));
+>>>>>>> master
 
         //the fast adapter
         ModelAdapter<News, NewsItem> newsAdapter = new ModelAdapter<>(NewsItem::new);
@@ -79,10 +89,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
-
-
-
-
 
         //remove this line
         //this.listView = findViewById(R.id.am_lv_news);
@@ -97,14 +103,15 @@ public class MainActivity extends AppCompatActivity {
                 Log.w("Error", "Conecte el dispositivo a internet");
             }else{
                 //get the News from NewsApi(internet).
-                List<News> listNews = contracts.retrieveNews(30);
+                listNews = contracts.retrieveNews(30);
 
                 //set the adapter!
                 runOnUiThread(() -> {
                     newsAdapter.add(listNews);
-
+                });
+            }
             //get the News from NewsApi(internet).
-            List<News> listNews = contracts.retrieveNews(30);
+            listNews = contracts.retrieveNews(30);
 
             //DELETE THIS SCOPE IN THE FUTURE
             //adapter to show the list of news.
@@ -117,11 +124,6 @@ public class MainActivity extends AppCompatActivity {
                 newsAdapter.add(listNews);
 
             });
-
-
-
-
-
         });
     }
 
