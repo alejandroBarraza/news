@@ -72,11 +72,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //the toolbar
-<<<<<<< HEAD
-        this.setSupportActionBar(findViewById(R.id.am_t_toolbar)); //FIXME
-=======
         this.setSupportActionBar(findViewById(R.id.am_t_toolbar));
->>>>>>> master
 
         //the fast adapter
         ModelAdapter<News, NewsItem> newsAdapter = new ModelAdapter<>(NewsItem::new);
