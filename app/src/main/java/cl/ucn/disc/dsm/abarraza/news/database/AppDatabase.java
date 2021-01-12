@@ -10,8 +10,7 @@ import androidx.room.RoomDatabase;
 
 import android.content.Context;
 
-@Database(entities = {}, version = 1)
-
+//@Database(entities = {}, version = 1)
 public abstract class AppDatabase extends RoomDatabase{
 
     public static AppDatabase INSTANCE;
