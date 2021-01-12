@@ -1,17 +1,17 @@
 #idea files
 *.iml
 .gradle
+
 #local
 /local.properties
+
 #idea stuff
-#
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
-
 
 /.idea/misc.xml
 /.idea/codeStyles/
@@ -26,8 +26,6 @@
 /.idea/render.experimental.xml
 /.idea/jarRepositories.xml
 /.idea/compiler.xml
-
-
 
 #trashy
 .DS_Store
