@@ -20,3 +20,4 @@ Route::get('/', function () {
 Route::view('add','addmember');
 Route::view('addnews','addnews');
 Route::post('addnews',[NewsController::class, 'addData']);
+Route::post('addnews',[NewsController::class, 'store']);
