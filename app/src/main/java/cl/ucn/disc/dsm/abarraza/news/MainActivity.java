@@ -19,6 +19,7 @@ import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -86,40 +87,24 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
 
-        //remove this line
-        //this.listView = findViewById(R.id.am_lv_news);
+        if (!isConnected(this)) {
+            Toast.makeText(MainActivity.this, "No hay conexion a internet, se mostraran noticias antiguas", Toast.LENGTH_LONG).show();
+        }else{
+            //Get the the news Async.
+            AsyncTask.execute(() ->{
 
-        //Get the the news Async.
-        AsyncTask.execute(() ->{
+                // using the contracts to get the news..
+                Contracts contracts = new ContractcImplNewsApi("ca0f046705c04b55b6c9305bc4c54b48");
 
-            // using the contracts to get the news..
-            Contracts contracts = new ContractcImplNewsApi("ca0f046705c04b55b6c9305bc4c54b48");
-
-            if (!isConnected(this)) {
-                Log.w("Error", "Conecte el dispositivo a internet");
-            }else{
                 //get the News from NewsApi(internet).
                 listNews = contracts.retrieveNews(30);
 
                 //set the adapter!
-                runOnUiThread(() -> {
+                runOnUiThread(()->{
                     newsAdapter.add(listNews);
                 });
-            }
-            //get the News from NewsApi(internet).
-            listNews = contracts.retrieveNews(30);
-
-            //DELETE THIS SCOPE IN THE FUTURE
-            //adapter to show the list of news.
-            //ArrayAdapter<String> adapter = new ArrayAdapter(
-              //      this, android.R.layout.simple_list_item_1,listNews
-            //);
-
-            //set the adapter!
-            runOnUiThread(()->{
-                newsAdapter.add(listNews);
             });
-        });
+        }
     }
 
     /**
