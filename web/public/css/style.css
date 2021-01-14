@@ -1,0 +1,33 @@
+h1{
+    margin-bottom: 50px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin-top: 50px;
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 48px;
+
+
+}
+html,body,::placeholder,navbar{
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+
+}
+body{
+    background-color: #FAFAFA;
+}
+.icon{
+    background-color: white;
+    margin-right: 5px;
+}
+.container-form{
+    background-color: #F5F5F5;
+    margin-bottom: 10px;
+    border-radius: 15px;
+
+
+}
+
