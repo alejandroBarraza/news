@@ -119,5 +119,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>
+
+    <footer>
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3 footer-text">Desarrollo de Soluciones Moviles II-2020:
+            <a style="color: #EFF0F1" href="https://www.ucn.cl/"> Universidad Católica del Norte</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+
 </body>
 </html>
