@@ -15,118 +15,119 @@
 
 
 <body>
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="/img/icon.png" alt="" width="30" height="30" class="d-inline-block align-top icon">
-                News
-            </a>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="/img/icon.png" alt="" width="30" height="30" class="d-inline-block align-top icon">
+            News
+        </a>
+    </div>
+</nav>
+
+
+<div class="container container-form">
+    <h1>Create a new news</h1>
+    <form action="#" method="POST">
+
+        @csrf
+
+        <div class="form-group">
+            <label for="title" class="col-sm-2 ">Title</label>
+            <div>
+
+                <input type="text" class="form-control" name="title" placeholder="Title"
+                >
+            </div>
+
         </div>
-    </nav>
 
+        <div class="form-group">
+            <label for="source" class="col-sm-2 col-form-label">Source</label>
+            <div>
 
-    <div class="container container-form">
-        <h1>Create a new news</h1>
-        <form action="#" method="POST">
-
-            @csrf
-
-            <div class="form-group">
-                <label for="title" class="col-sm-2 ">Title</label>
-                <div>
-
-                    <input type="text" class="form-control" name="title" placeholder="Title"
-                           >
-                </div>
-
+                <input type="text" class="form-control" name="source" placeholder="Source"
+                >
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="author" class="col-form-label">Author</label>
-                <div>
+        <div class="form-group">
+            <label for="author" class="col-form-label">Author</label>
+            <div>
 
-                    <input type="text" class="form-control" name="author" placeholder="Author"
-                           >
-                </div>
+                <input type="text" class="form-control" name="author" placeholder="Author"
+                >
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="source" class="col-sm-2 col-form-label">Source</label>
-                <div>
+        <div class="form-group">
+            <label for="url" class="col-sm-2 col-form-label">URL</label>
+            <div>
 
-                    <input type="text" class="form-control" name="source" placeholder="Source"
-                           >
-                </div>
+                <input type="text" class="form-control" name="url" placeholder="url of the news">
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="url" class="col-sm-2 col-form-label">URL</label>
-                <div>
-
-                    <input type="text" class="form-control" name="url" placeholder="url of the news">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="url_image" class="col-sm-2 col-form-label">URL Image</label>
-
-                <div>
-
-                    <input type="text" class="form-control" name="url_image" placeholder="url of the image" >
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="description" class="col-sm-2 col-form-label">Description</label>
-                <div>
-
-                    <input type="text" class="form-control" name="description" placeholder="description of the news" >
-
-                </div>
-            </div>
-
-            <div class="form-group ">
-                <label for="content" class="col-sm-2 col-form-label">Content</label>
-                <div>
-                    <textarea class="form-control" name="content" rows="4" cols="40"></textarea>
-                </div>
-
-            </div>
-
-            <?php
-            date_default_timezone_set('America/Santiago');
-            $date_actual = date("d-m-Y");
-            ?>
-            <div class="form-group">
-                <label for="date" class="col-sm-2 col-form-label">Published</label>
-                <div>
-                    <input type="text" class="form-control" name="date" type="datetime" value="<?= $date_actual?>">
-                </div>
-            </div>
+        <div class="form-group">
+            <label for="urlImage" class="col-sm-2 col-form-label">URL Image</label>
 
             <div>
-                <br/>
+
+                <input type="text" class="form-control" name="urlImage" placeholder="url of the image" >
             </div>
-            <div class="form-group">
-                <div class="col-sm-10">
-                    <button type="submit" class="btn btn-dark">Save News</button>
-                </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description" class="col-sm-2 col-form-label">Description</label>
+            <div>
+
+                <input type="text" class="form-control" name="description" placeholder="description of the news" >
+
             </div>
-        </form>
-    </div>
+        </div>
+
+        <div class="form-group ">
+            <label for="content" class="col-sm-2 col-form-label">Content</label>
+            <div>
+                <input type="text" class="form-control" name="content" placeholder="content" >
+            <!--<textarea type="text" class="form-control" name="content" rows="4" cols="40" value="{{old('content')}}"></textarea> -->
+            </div>
+
+        </div>
+
+        <?php
+        date_default_timezone_set('America/Santiago');
+        $date_actual = date("d-m-Y");
+        ?>
+        <div class="form-group">
+            <label for="date" class="col-sm-2 col-form-label">Published</label>
+            <div>
+                <input type="text" class="form-control" name="date" type="datetime" value="<?= $date_actual?>">
+            </div>
+        </div>
+
+        <div>
+            <br/>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-dark">Save News</button>
+            </div>
+        </div>
+    </form>
+</div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>
 
-    <footer>
-        <!-- Copyright -->
-        <div class="footer-copyright text-center py-3 footer-text">Desarrollo de Soluciones Moviles II-2020:
-            <a style="color: #EFF0F1" href="https://www.ucn.cl/"> Universidad Católica del Norte</a>
-        </div>
-        <!-- Copyright -->
-    </footer>
+<footer>
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3 footer-text">Desarrollo de Soluciones Moviles II-2020:
+        <a style="color: #EFF0F1" href="https://www.ucn.cl/"> Universidad Católica del Norte</a>
+    </div>
+    <!-- Copyright -->
+</footer>
 
 </body>
 </html>
