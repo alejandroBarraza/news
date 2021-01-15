@@ -26,7 +26,7 @@
 
 
 <div class="container container-form">
-    <h1>Create a new news</h1>
+    <h1>Register News</h1>
     <form action="#" method="POST">
 
         @csrf
@@ -124,7 +124,7 @@
 <footer>
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3 footer-text">Desarrollo de Soluciones Moviles II-2020:
-        <a style="color: #EFF0F1" href="https://www.ucn.cl/"> Universidad Católica del Norte</a>
+        <a style="color: #000000" href="https://www.ucn.cl/"> Universidad Católica del Norte</a>
     </div>
     <!-- Copyright -->
 </footer>
