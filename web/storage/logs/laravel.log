@@ -6324,3 +6324,103 @@ ews\\web\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kern
 ews\\web\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #5 {main}
 "} 
+[2021-01-16 13:14:10] local.ERROR: Command "make:auth" is not defined.
+
+Did you mean one of these?
+    make:cast
+    make:channel
+    make:command
+    make:component
+    make:controller
+    make:event
+    make:exception
+    make:factory
+    make:job
+    make:listener
+    make:mail
+    make:middleware
+    make:migration
+    make:model
+    make:notification
+    make:observer
+    make:policy
+    make:provider
+    make:request
+    make:resource
+    make:rule
+    make:seeder
+    make:test
+    ui:auth {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"make:auth\" is not defined.
+
+Did you mean one of these?
+    make:cast
+    make:channel
+    make:command
+    make:component
+    make:controller
+    make:event
+    make:exception
+    make:factory
+    make:job
+    make:listener
+    make:mail
+    make:middleware
+    make:migration
+    make:model
+    make:notification
+    make:observer
+    make:policy
+    make:provider
+    make:request
+    make:resource
+    make:rule
+    make:seeder
+    make:test
+    ui:auth at D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\vendor\\symfony\\console\\Application.php:675)
+[stacktrace]
+#0 D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\vendor\\symfony\\console\\Application.php(254): Symfony\\Component\\Console\\Application->find('make:auth')
+#1 D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\vendor\\symfony\\console\\Application.php(166): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(93): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#5 {main}
+"} 
+[2021-01-16 13:20:01] local.ERROR: Invalid preset. {"exception":"[object] (InvalidArgumentException(code: 0): Invalid preset. at D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\vendor\\laravel\\ui\\src\\UiCommand.php:41)
+[stacktrace]
+#0 D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(36): Laravel\\Ui\\UiCommand->handle()
+#1 D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php(40): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#2 D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#3 D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(37): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#4 D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(610): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#5 D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(136): Illuminate\\Container\\Container->call(Array)
+#6 D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\vendor\\symfony\\console\\Command\\Command.php(255): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#7 D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(121): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#8 D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\vendor\\symfony\\console\\Application.php(971): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#9 D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\vendor\\symfony\\console\\Application.php(290): Symfony\\Component\\Console\\Application->doRunCommand(Object(Laravel\\Ui\\UiCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#10 D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\vendor\\symfony\\console\\Application.php(166): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#11 D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(93): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#12 D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(129): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#13 D:\\Usuarios\\DarkPumpkin 2\\Desktop\\UCN\\DesarrolloDeSolucionesMoviles\\ProyectoAndroid\\ProyectoNews\
+ews\\web\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#14 {main}
+"} 
