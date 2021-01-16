@@ -21,3 +21,7 @@ Route::view('add','addmember');
 Route::view('addnews','addnews');
 Route::post('addnews',[NewsController::class, 'addData']);
 Route::post('addnews',[NewsController::class, 'store']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
