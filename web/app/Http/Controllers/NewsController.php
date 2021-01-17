@@ -42,8 +42,51 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // The validation of the required
+        $this->validate($request, [
+            'title' => 'required',
+            'author' => 'required',
+            'source' => 'required',
+            'url' => 'required',
+            'description' => 'required',
+            'content' => 'required',
+            'date' => 'required'
+        ]);
+
+        // Creates a News
+        $news = new News();
+
+        // Get  the title of the news
+        $news->title = $request->input('title');
+
+        // Get the author of the news
+        $news->author = $request->input('author');
+
+        // Get the source of the news
+        $news->source = $request->input('source');
+
+        // Get the URL of the news
+        $news->url = $request->input('url');
+
+        // Get the URL image of the news
+        $news->urlImage = $request->input('urlImage');
+
+        // Get the description of the news
+        $news->description = $request->input('description');
+
+        // Get the content of the news
+        $news->content = $request->input('content');
+
+        // Get the publish date of the news
+        $news->date = $request->input('date');
+
+        // Save the news into database
+        $news->save();
+        $news = News::all();
+
+        return back()->with('message', 'Se ha agregado la noticia correctamente!');
     }
+
 
     /**
      * Display the specified resource.
@@ -92,16 +135,37 @@ class NewsController extends Controller
 
     public function addData(Request $req)
     {
+        // Registers a News
         $news= new News;
+
+        // Registers the title of the news
         $news->title=$req->title;
-        $news->title=$req->source;
-        $news->title=$req->author;
-        $news->title=$req->url;
-        $news->title=$req->urlImage;
-        $news->title=$req->description;
-        $news->title=$req->content;
-        $news->title=$req->publishedAt;
+
+        // Registers the source of the news
+        $news->source=$req->source;
+
+        // Registers the author of the news
+        $news->author=$req->author;
+
+        // Registers the url of the news
+        $news->url=$req->url;
+
+        // Registers the url image of the news
+        $news->urlImage=$req->urlImage;
+
+        // Registers the description of the news
+        $news->description=$req->description;
+
+        // Registers the content of the news
+        $news->content=$req->content;
+
+        // Registers the date of the news
+        $news->date=$req->date;
+
+        // Saves the news into the store function
         $news->save();
+
+        //redirects the page into the same
         return redirect('add');
     }
 }

@@ -19,10 +19,10 @@ class CreateNewsTable extends Migration
             $table->string('author');
             $table->string('source');
             $table->string('url');
-            $table->string('url_image')->nullable();
+            $table->string('urlImage')->nullable();
             $table->string('description');
             $table->string('content');
-            $table->timestamp('published_at');
+            $table->timestamp('date');
             $table->timestamps();
         });
     }
