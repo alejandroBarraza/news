@@ -15,8 +15,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -31,8 +29,14 @@ import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.ModelAdapter;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import cl.ucn.disc.dsm.abarraza.news.activities.NewsItem;
+import cl.ucn.disc.dsm.abarraza.news.database.AppDatabase;
+import cl.ucn.disc.dsm.abarraza.news.database.dao.ItemDAO;
+import cl.ucn.disc.dsm.abarraza.news.database.entity.Item;
+import cl.ucn.disc.dsm.abarraza.news.database.repository.ItemRepository;
+import cl.ucn.disc.dsm.abarraza.news.database.repository.ItemRepositoryImpl;
 import cl.ucn.disc.dsm.abarraza.news.model.News;
 import cl.ucn.disc.dsm.abarraza.news.services.ContractcImplNewsApi;
 import cl.ucn.disc.dsm.abarraza.news.services.Contracts;
@@ -72,6 +76,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Database
+        AppDatabase db = AppDatabase.getInstance(this.getApplicationContext());
+
+        //DAO
+        ItemDAO dao = db.itemDAO();
+
+        //ItemRepository
+        ItemRepository repo = new ItemRepositoryImpl(dao);
+
+        //ListItem
+        AtomicReference<List<Item>> listItem = null;
+
         //the toolbar
         this.setSupportActionBar(findViewById(R.id.am_t_toolbar));
 
@@ -98,6 +114,21 @@ public class MainActivity extends AppCompatActivity {
 
                 //get the News from NewsApi(internet).
                 listNews = contracts.retrieveNews(30);
+                for(int i = 0; i < 30; i++){
+                    Item item = new Item(
+                            listNews.get(i).getTitle(),
+                            listNews.get(i).getSource(),
+                            listNews.get(i).getAuthor(),
+                            listNews.get(i).getUrl(),
+                            listNews.get(i).getUrlImage(),
+                            listNews.get(i).getDescription(),
+                            listNews.get(i).getContent(),
+                            listNews.get(i).getPublishedAt()
+                    );
+                    repo.insertItem(item);
+                }
+
+                listItem = repo.getAllItems();
 
                 //set the adapter!
                 runOnUiThread(()->{
