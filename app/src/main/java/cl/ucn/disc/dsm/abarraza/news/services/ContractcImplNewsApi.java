@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2020 alejandro barraza alejandro.barraza@alumnos.ucn.cl
  *
@@ -63,9 +64,7 @@ public class ContractcImplNewsApi implements Contracts {
             List<News> news = new ArrayList<>();
             //iterate over the articles
             for (Article article: articles) {
-
                 news.add(article2news(article));
-
             }
             //return the list of news.
             return news.stream()
@@ -80,7 +79,6 @@ public class ContractcImplNewsApi implements Contracts {
             //Inner exception
             throw new  RuntimeException(e);
         }
-
     }
 
     /**
@@ -98,7 +96,6 @@ public class ContractcImplNewsApi implements Contracts {
      * @param article
      * @return
      */
-
     private static News article2news(Article article) {
         //debug of artciles
         System.out.println("article:" + ToStringBuilder.reflectionToString(
@@ -124,14 +121,11 @@ public class ContractcImplNewsApi implements Contracts {
                 article.getDescription(),
                 article.getDescription(),//FIXME: where is the content?.
                 publishedAt
-
-
-
         );
     }
 
     /**
-     * Save on News intro the system
+     * Save on News into the system
      *
      * @param news to save
      */

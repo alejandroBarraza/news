@@ -72,7 +72,6 @@ public final class News {
      * @param content
      * @param publishedAt
      */
-
     public News(String title, String source, String author, String url, String urlImage, String description, String content, ZonedDateTime publishedAt) {
         //validation of title
         Validation.minSize(title,2 , "title");
@@ -146,6 +145,4 @@ public final class News {
     public String toString() {
         return this.title;
     }
-
-    //Aqui Hanfox
 }

@@ -10,10 +10,17 @@ import androidx.room.RoomDatabase;
 
 import android.content.Context;
 
-//@Database(entities = {}, version = 1)
+import cl.ucn.disc.dsm.abarraza.news.database.dao.ItemDAO;
+import cl.ucn.disc.dsm.abarraza.news.database.entity.Item;
+
+@Database(entities = {
+        Item.class
+}, version = 1)
 public abstract class AppDatabase extends RoomDatabase{
 
     public static AppDatabase INSTANCE;
+
+    public abstract ItemDAO itemDAO();
 
     public static AppDatabase getInstance(Context context) {
         if(INSTANCE == null){
@@ -22,7 +29,6 @@ public abstract class AppDatabase extends RoomDatabase{
                     .fallbackToDestructiveMigration()
                     .build();
         }
-
         return INSTANCE;
     }
 }
