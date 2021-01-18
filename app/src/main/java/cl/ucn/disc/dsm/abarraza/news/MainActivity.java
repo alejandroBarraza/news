@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.ModelAdapter;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
      * the listNews
      */
     List<News> listNews;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     /**
      * On create
@@ -77,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
 
         //the toolbar
         this.setSupportActionBar(findViewById(R.id.am_t_toolbar));
+
+        //new one
+        swipeRefreshLayout = (SwipeRefreshLayout
+                ) findViewById(R.id.am_swl_refresh);
 
         //the fast adapter
         ModelAdapter<News, NewsItem> newsAdapter = new ModelAdapter<>(NewsItem::new);
@@ -117,7 +123,18 @@ public class MainActivity extends AppCompatActivity {
                     newsAdapter.add(listNews);
                 });
             });
+            //Refresh the news list until a new request is a made.
+            swipeRefreshLayout.setOnRefreshListener(
+                    () -> {
+                        fastAdapter.notifyAdapterDataSetChanged();
+                        Toast.makeText(MainActivity.this, "Loading..", Toast.LENGTH_LONG).show();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+            );
+
         }
+
+
     }
 
     /**
@@ -135,4 +152,9 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
+
+
+
+
 }
