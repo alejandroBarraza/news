@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import cl.ucn.disc.dsm.abarraza.news.database.AppDatabase;
 import cl.ucn.disc.dsm.abarraza.news.model.News;
 
 public final class ContratcsImplFaker implements Contracts {
@@ -74,7 +75,7 @@ public final class ContratcsImplFaker implements Contracts {
      * @param news to save
      */
     @Override
-    public void saveNews(final News news) {
+    public void saveNews(final News news, AppDatabase db) {
         //FIXME:don't allow duplicates.
         //fix duplicate news.
         AtomicBoolean isDuplicate = new AtomicBoolean(false);

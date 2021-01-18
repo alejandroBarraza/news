@@ -12,6 +12,7 @@ package cl.ucn.disc.dsm.abarraza.news.services;
 
 import java.util.List;
 
+import cl.ucn.disc.dsm.abarraza.news.database.AppDatabase;
 import cl.ucn.disc.dsm.abarraza.news.model.News;
 
 /**
@@ -29,6 +30,6 @@ public interface Contracts {
      * Save on News intro the system
      * @param news to save
      */
-    void saveNews(News news);
+    void saveNews(News news, AppDatabase db);
 
 }

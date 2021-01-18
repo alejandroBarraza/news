@@ -13,6 +13,7 @@ package cl.ucn.disc.dsm.abarraza.news.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import cl.ucn.disc.dsm.abarraza.news.database.AppDatabase;
 import cl.ucn.disc.dsm.abarraza.news.model.News;
 
 public class ContractsImpl implements Contracts {
@@ -35,7 +36,7 @@ public class ContractsImpl implements Contracts {
      * @param news to save
      */
     @Override
-    public void saveNews(News news) {
+    public void saveNews(News news, AppDatabase db) {
 
     }
 }
