@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2020 alejandro barraza alejandro.barraza@alumnos.ucn.cl
  *
@@ -29,6 +30,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import cl.ucn.disc.dsm.abarraza.news.database.AppDatabase;
 import cl.ucn.disc.dsm.abarraza.news.model.News;
 import cl.ucn.disc.dsm.abarraza.news.utils.Validation;
 
@@ -45,7 +47,6 @@ public class ContractcImplNewsApi implements Contracts {
     public ContractcImplNewsApi(String apiKey) {
         Validation.notNull(apiKey,"apikey!");
         this.newsApiService = new NewsApiService(apiKey);
-    
     }
 
     /**
@@ -63,9 +64,7 @@ public class ContractcImplNewsApi implements Contracts {
             List<News> news = new ArrayList<>();
             //iterate over the articles
             for (Article article: articles) {
-
                 news.add(article2news(article));
-
             }
             //return the list of news.
             return news.stream()
@@ -80,7 +79,6 @@ public class ContractcImplNewsApi implements Contracts {
             //Inner exception
             throw new  RuntimeException(e);
         }
-
     }
 
     /**
@@ -98,7 +96,6 @@ public class ContractcImplNewsApi implements Contracts {
      * @param article
      * @return
      */
-
     private static News article2news(Article article) {
         //debug of artciles
         System.out.println("article:" + ToStringBuilder.reflectionToString(
@@ -124,19 +121,16 @@ public class ContractcImplNewsApi implements Contracts {
                 article.getDescription(),
                 article.getDescription(),//FIXME: where is the content?.
                 publishedAt
-
-
-
         );
     }
 
     /**
-     * Save on News intro the system
+     * Save on News into the system
      *
      * @param news to save
      */
     @Override
-    public void saveNews(News news) {
-        throw  new NotImplementedException("cant save news in newaapi");
+    public void saveNews(News news, AppDatabase db) {
+        db.newsDAO().insert(news);
     }
 }
