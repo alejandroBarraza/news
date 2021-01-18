@@ -30,6 +30,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import cl.ucn.disc.dsm.abarraza.news.database.AppDatabase;
 import cl.ucn.disc.dsm.abarraza.news.model.News;
 import cl.ucn.disc.dsm.abarraza.news.utils.Validation;
 
@@ -46,7 +47,6 @@ public class ContractcImplNewsApi implements Contracts {
     public ContractcImplNewsApi(String apiKey) {
         Validation.notNull(apiKey,"apikey!");
         this.newsApiService = new NewsApiService(apiKey);
-    
     }
 
     /**
@@ -130,7 +130,7 @@ public class ContractcImplNewsApi implements Contracts {
      * @param news to save
      */
     @Override
-    public void saveNews(News news) {
-        throw  new NotImplementedException("cant save news in newaapi");
+    public void saveNews(News news, AppDatabase db) {
+        db.newsDAO().insert(news);
     }
 }
