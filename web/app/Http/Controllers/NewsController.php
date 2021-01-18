@@ -107,7 +107,8 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = News::find($id);
+        return back()->with('message', 'Se ha modificado la noticia correctamente!');
     }
 
     /**
@@ -119,7 +120,27 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = News::findOrFail($id);
+
+        $data->title = $request->get('title');
+
+        $data->author = $request->get('author');
+
+        $data->source = $request->get('source');
+
+        $data->url = $request->get('url');
+
+        $data->urlImage = $request->get('urlImage');
+
+        $data->description = $request->get('description');
+
+        $data->content = $request->get('content');
+
+        $data->date = $request->get('date');
+
+        $data->save();
+
+        return back()->with('message', 'La noticia ha sido actualizada');
     }
 
     /**
