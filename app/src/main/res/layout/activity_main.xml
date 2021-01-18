@@ -8,19 +8,17 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Day/Night" />
 
         <com.google.android.material.appbar.MaterialToolbar
 
             android:id="@+id/am_t_toolbar"
+            style="@style/Theme.News.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:elevation="4dp"
@@ -29,9 +27,20 @@
             app:contentInsetStartWithNavigation="0dp"
             app:navigationIcon="@drawable/ic_launcher_foreground"
             app:subtitle="@string/subtitle"
-            app:title="@string/title"
-            style="@style/Theme.News.Toolbar"
-            />
+            app:title="@string/title" />
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:padding="10dp"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:switchPadding="20dp"
+            android:text="Day/Night" />
+
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -45,9 +54,13 @@
             android:id="@+id/am_rv_news"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>
+
+
+
+
 
 
 
