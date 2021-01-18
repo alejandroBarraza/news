@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\NewsController;
 use Illuminate\Http\Request;
 use DB;
 
@@ -10,7 +11,7 @@ class TableditController extends Controller
 {
     function index()
     {
-        $data = DB::table('sample_datas')->get();
+        $data = DB::table('news')->get();
         return view('table_edit', compact('data'));
     }
 
@@ -21,21 +22,36 @@ class TableditController extends Controller
             if($request->action == 'edit')
             {
                 $data = array(
-                    'first_name'	=>	$request->first_name,
-                    'last_name'		=>	$request->last_name,
-                    'gender'		=>	$request->gender
+                    'title'	=>	$request->title,
+                    'author'		=>	$request->author,
+                    'source'		=>	$request->source,
+                    'url'		=>	$request->url,
+                    'urlImage'		=>	$request->urlImage,
+                    'description'		=>	$request->description,
+                    'content'		=>	$request->content,
+                    'date'		=>	$request->date
                 );
-                DB::table('sample_datas')
+                //NewsController::update(id);
+                $this->updateData(id, data);
+                /*DB::table('news')
                     ->where('id', $request->id)
-                    ->update($data);
+                    ->update($data);*/
+                /*$data = NewsController::update($id);*/
             }
             if($request->action == 'delete')
             {
-                DB::table('sample_datas')
+                DB::table('news')
                     ->where('id', $request->id)
                     ->delete();
             }
             return response()->json($request);
         }
     }
+
+    function updateData($id,$data){
+        DB::table('news')
+            ->where('id', $id)
+            ->update($data);
+    }
+
 }
