@@ -32,11 +32,19 @@ import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.ModelAdapter;
 
 import java.util.List;
+import java.util.ListIterator;
 
 import cl.ucn.disc.dsm.abarraza.news.activities.NewsItem;
 import cl.ucn.disc.dsm.abarraza.news.model.News;
+import cl.ucn.disc.dsm.abarraza.news.retrofit.GetterApiLaravel;
+import cl.ucn.disc.dsm.abarraza.news.retrofit.LaravelNews;
 import cl.ucn.disc.dsm.abarraza.news.services.ContractcImplNewsApi;
 import cl.ucn.disc.dsm.abarraza.news.services.Contracts;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * the main class
@@ -110,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
                     newsAdapter.add(listNews);
                 });
             });
+
             //Refresh the news list until a new request is a made.
             swipeRefreshLayout.setOnRefreshListener(
                     () -> {
@@ -140,8 +149,35 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    //bring data from laravelapi
+    private void getPosts(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://jsonplaceholder.typicode.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        GetterApiLaravel getterApiLaravel = retrofit.create(GetterApiLaravel.class);
+        Call<List<LaravelNews>> call = getterApiLaravel.getPosts();
+        call.enqueue(new Callback<List<LaravelNews>>() {
+            @Override
+            public void onResponse(Call<List<LaravelNews>> call, Response<List<LaravelNews>> response) {
+                if(!response.isSuccessful()){
+                    //insert failure message.
+                }
+                //insert succes method.
+                List<LaravelNews> newsListApiLaravel =  response.body();
+                for( LaravelNews laravelNews: newsListApiLaravel){
+                    //display the news after.
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<LaravelNews>> call, Throwable t) {
+                //insert failure process
+            }
+        });
 
 
-
+    }
 
 }
