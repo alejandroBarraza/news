@@ -77,7 +77,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //dark mode switch.
+        /**
+         * night/day mode switch,display after swipe the switch.
+         */
+
         Switch switch1 = findViewById(R.id.switch1);
         switch1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked){
@@ -111,7 +114,9 @@ public class MainActivity extends AppCompatActivity {
         
         findNews(newsAdapter);
 
-        //Refresh the news list until a new request is a made.
+        /**
+         * bring new news after pull to refresh action.
+         */
         swipeRefreshLayout.setOnRefreshListener(
                 () -> {
                     newsAdapter.clear();
