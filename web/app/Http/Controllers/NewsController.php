@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\APIHelpers;
 use App\Models\News;
 use Illuminate\Http\Request;
 
@@ -18,10 +19,12 @@ class NewsController extends Controller
         $news = News::all();
 
         //Return the get request with code 200
-        return response([
+        $response = APIHelpers::createAPIResponse(false, 200, '', $news);
+        return response()->json($response, 200);
+        /*return response([
             'message' =>'Retrieved Successfully',
             'news' => $news
-        ],200);
+        ],200);*/
     }
 
     /**
