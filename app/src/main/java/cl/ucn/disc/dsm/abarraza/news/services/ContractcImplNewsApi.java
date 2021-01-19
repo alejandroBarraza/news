@@ -97,10 +97,6 @@ public class ContractcImplNewsApi implements Contracts {
      * @return
      */
     private static News article2news(Article article) {
-        //debug of artciles
-        System.out.println("article:" + ToStringBuilder.reflectionToString(
-                article, ToStringStyle.MULTI_LINE_STYLE
-        ));
         ZonedDateTime publishedAt = ZonedDateTime.parse(article.getPublishedAt()).withZoneSameInstant(ZoneId.of("-3"));
 
 
