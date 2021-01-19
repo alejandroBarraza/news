@@ -68,4 +68,10 @@ dependencies {
     implementation "androidx.room:room-runtime:2.2.6"
     annotationProcessor "androidx.room:room-compiler:2.2.6"
 
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+
+    //Gson
+    implementation 'com.google.code.gson:gson:2.8.6'
+
 }
