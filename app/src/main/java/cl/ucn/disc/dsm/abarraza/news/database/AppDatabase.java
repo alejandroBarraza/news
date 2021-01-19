@@ -12,6 +12,10 @@ import cl.ucn.disc.dsm.abarraza.news.database.dao.NewsDAO;
 import cl.ucn.disc.dsm.abarraza.news.model.News;
 import cl.ucn.disc.dsm.abarraza.news.utils.ZonedDateTimeConverter;
 
+/**
+ *  the AppDatabase class
+ *  @author Diego Calderón
+ */
 @Database(entities = {
         News.class
 }, version = 1)
