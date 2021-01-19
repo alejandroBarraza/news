@@ -17,9 +17,14 @@ use App\Http\Controllers\NewsController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('listnews', [NewsController::class,'show']);
+Route::get('delete/{id}', [NewsController::class,'destroy']);
+Route::get('edit/{id}', [NewsController::class,'edit']);
+Route::post('edit', [NewsController::class,'update']);
 Route::view('add','addmember');
 Route::view('addnews','addnews');
-Route::post('addnews',[NewsController::class, 'addData']);
+
 Route::post('addnews',[NewsController::class, 'store']);
 
 Route::get('tabledit', [App\Http\Controllers\TableditController::class, 'index'])->name('tabledit');
