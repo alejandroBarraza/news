@@ -21,3 +21,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //News routes
 Route::resource('news', NewsController::class);
+Route::post('/api/news',[\App\Helpers\APIHelpers::class, 'createAPIResponse']);
