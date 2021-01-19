@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
 
-        // daatabase instance
+        // database instance
         db = AppDatabase.getInstance(this.getApplicationContext());
 
         if (!isConnected(this)) {
