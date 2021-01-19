@@ -16,7 +16,6 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -35,6 +34,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import cl.ucn.disc.dsm.abarraza.news.activities.NewsItem;
+import cl.ucn.disc.dsm.abarraza.news.database.AppDatabase;
 import cl.ucn.disc.dsm.abarraza.news.model.News;
 import cl.ucn.disc.dsm.abarraza.news.retrofit.GetterApiLaravel;
 import cl.ucn.disc.dsm.abarraza.news.retrofit.LaravelNews;
@@ -82,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Database
+        AppDatabase db = AppDatabase.getInstance(this.getApplicationContext());
+
         //the toolbar
         this.setSupportActionBar(findViewById(R.id.am_t_toolbar));
 
@@ -103,6 +106,13 @@ public class MainActivity extends AppCompatActivity {
 
         if (!isConnected(this)) {
             Toast.makeText(MainActivity.this, "No hay conexion a internet, se mostraran noticias antiguas", Toast.LENGTH_LONG).show();
+            listNews = db.newsDAO().getAll();
+            AsyncTask.execute(() ->{
+                //set the adapter!
+                runOnUiThread(()->{
+                    newsAdapter.add(listNews);
+                });
+            });
         }else{
             //Get the the news Async.
             AsyncTask.execute(() ->{
@@ -112,6 +122,9 @@ public class MainActivity extends AppCompatActivity {
 
                 //get the News from NewsApi(internet).
                 listNews = contracts.retrieveNews(30);
+
+                for(int i = 0; i < listNews.size(); i++)
+                    contracts.saveNews(listNews.get(i), db);
 
                 //set the adapter!
                 runOnUiThread(()->{

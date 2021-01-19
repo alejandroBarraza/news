@@ -11,6 +11,9 @@
 package cl.ucn.disc.dsm.abarraza.news.model;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import net.openhft.hashing.LongHashFunction;
 
@@ -22,42 +25,64 @@ import cl.ucn.disc.dsm.abarraza.news.utils.Validation;
  * the domain model news
  * @author alejandro barraza
  */
+@Entity(tableName = "news")
 public final class News {
     /**
      * unique id
      */
-    private final Long id;
+    @PrimaryKey(autoGenerate = false)
+    private long id;
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     /**
      * the title
      */
+    @ColumnInfo(name = "title")
     private final String title;
+
     /**
      * the source
      */
+    @ColumnInfo(name = "source")
     private final String source;
+
     /**
      * the author
      */
+    @ColumnInfo(name = "author")
     private final String author;
+
     /**
      * the url
      */
+    @ColumnInfo(name = "url")
     private final String url;
+
     /**
      * the url of image
      */
+    @ColumnInfo(name = "urlImage")
     private final String urlImage;
+
     /**
      * the description
      */
+    @ColumnInfo(name = "description")
     private final String description;
+
     /**
      * the content
      */
+    @ColumnInfo(name = "content")
     private final String content;
+
     /**
      * the date of publish
      */
+    @ColumnInfo(name = "publishedAt")
     private final ZonedDateTime publishedAt;
 
     /**
@@ -72,7 +97,6 @@ public final class News {
      * @param content
      * @param publishedAt
      */
-
     public News(String title, String source, String author, String url, String urlImage, String description, String content, ZonedDateTime publishedAt) {
         //validation of title
         Validation.minSize(title,2 , "title");
@@ -146,6 +170,4 @@ public final class News {
     public String toString() {
         return this.title;
     }
-
-    //Aqui Hanfox
 }

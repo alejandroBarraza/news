@@ -94,9 +94,10 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $data = News::orderBy('publishedAt', 'DESC') -> paginate(10);
+        return view('listnews', ['news' => $data]);
     }
 
     /**
@@ -107,7 +108,9 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = News::find($id);
+        return view('edit', ['data'=>$data]);
+        //return back()->with('message', 'Se ha modificado la noticia correctamente!');
     }
 
     /**
@@ -117,9 +120,31 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+        $data = News::find($request -> id);
+
+        $data->title = $request->title;
+
+        $data->author = $request->author;
+
+        $data->source = $request->source;
+
+        $data->url = $request->url;
+
+        $data->urlImage = $request->urlImage;
+
+        $data->description = $request->description;
+
+        $data->content = $request->content;
+
+        $data->date = $request->date;
+
+        $data->save();
+        $news = News::all();
+
+        return redirect('listnews')->with('message', 'La noticia ha sido actualizada');
     }
 
     /**
@@ -130,10 +155,12 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = News::find($id);
+        $data->delete();
+        return redirect('listnews');
     }
 
-    public function addData(Request $req)
+    /*public function addData(Request $req)
     {
         // Registers a News
         $news= new News;
@@ -167,5 +194,5 @@ class NewsController extends Controller
 
         //redirects the page into the same
         return redirect('add');
-    }
+    }*/
 }
