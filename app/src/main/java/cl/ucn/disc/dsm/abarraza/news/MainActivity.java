@@ -108,44 +108,19 @@ public class MainActivity extends AppCompatActivity {
 
         // database instance
         db = AppDatabase.getInstance(this.getApplicationContext());
+        
+        findNews(newsAdapter);
 
-        if (!isConnected(this)) {
-            Toast.makeText(MainActivity.this, "No hay conexion a internet, se mostraran noticias antiguas", Toast.LENGTH_LONG).show();
-            listNews = db.newsDAO().getAll();
-            AsyncTask.execute(() ->{
-                //set the adapter!
-                runOnUiThread(()->{
-                    newsAdapter.add(listNews);
-                });
-            });
-        }else{
-            //Get the the news Async.
-            AsyncTask.execute(() ->{
-
-                // using the contracts to get the news..
-                Contracts contracts = new ContractcImplNewsApi("ca0f046705c04b55b6c9305bc4c54b48");
-
-                //get the News from NewsApi(internet).
-                listNews = contracts.retrieveNews(30);
-
-                for(int i = 0; i < listNews.size(); i++)
-                    contracts.saveNews(listNews.get(i), db);
-
-                //set the adapter!
-                runOnUiThread(()->{
-                    newsAdapter.add(listNews);
-                });
-            });
-
-            //Refresh the news list until a new request is a made.
-            swipeRefreshLayout.setOnRefreshListener(
-                    () -> {
-                        fastAdapter.notifyAdapterDataSetChanged();
-                        Toast.makeText(MainActivity.this, "Loading..", Toast.LENGTH_LONG).show();
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-            );
-        }
+        //Refresh the news list until a new request is a made.
+        swipeRefreshLayout.setOnRefreshListener(
+                () -> {
+                    newsAdapter.clear();
+                    findNews(newsAdapter);
+                    fastAdapter.notifyAdapterDataSetChanged();
+                    Toast.makeText(MainActivity.this, "Loading..", Toast.LENGTH_LONG).show();
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+        );
     }
 
     /**
@@ -164,7 +139,9 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    //bring data from laravelapi
+    /**
+     * bring data from laravelapi
+     */
     private void getPosts(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://jsonplaceholder.typicode.com/")
@@ -190,6 +167,41 @@ public class MainActivity extends AppCompatActivity {
                 //insert failure process
             }
         });
+    }
+
+    /**
+     * Search, store, and display news from the api
+     * @param newsAdapter
+     */
+    public void findNews(ModelAdapter<News, NewsItem> newsAdapter){
+        if (!isConnected(this)) {
+            Toast.makeText(MainActivity.this, "No hay conexion a internet, se mostraran noticias antiguas", Toast.LENGTH_LONG).show();
+            listNews = db.newsDAO().getAll();
+            AsyncTask.execute(() ->{
+                //set the adapter!
+                runOnUiThread(()->{
+                    newsAdapter.add(listNews);
+                });
+            });
+        }else {
+            //Get the the news Async.
+            AsyncTask.execute(() -> {
+
+                // using the contracts to get the news..
+                Contracts contracts = new ContractcImplNewsApi("ca0f046705c04b55b6c9305bc4c54b48");
+
+                //get the News from NewsApi(internet).
+                listNews = contracts.retrieveNews(30);
+
+                for (int i = 0; i < listNews.size(); i++)
+                    contracts.saveNews(listNews.get(i), db);
+
+                //set the adapter!
+                runOnUiThread(() -> {
+                    newsAdapter.add(listNews);
+                });
+            });
+        }
     }
 
 }
