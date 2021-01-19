@@ -94,9 +94,10 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $data = News::orderBy('publishedAt', 'DESC') -> paginate(10);
+        return view('listnews', ['news' => $data]);
     }
 
     /**
@@ -108,7 +109,8 @@ class NewsController extends Controller
     public function edit($id)
     {
         $data = News::find($id);
-        return back()->with('message', 'Se ha modificado la noticia correctamente!');
+        return view('edit', ['data'=>$data]);
+        //return back()->with('message', 'Se ha modificado la noticia correctamente!');
     }
 
     /**
@@ -118,29 +120,31 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $data = News::findOrFail($id);
 
-        $data->title = $request->get('title');
+        $data = News::find($request -> id);
 
-        $data->author = $request->get('author');
+        $data->title = $request->title;
 
-        $data->source = $request->get('source');
+        $data->author = $request->author;
 
-        $data->url = $request->get('url');
+        $data->source = $request->source;
 
-        $data->urlImage = $request->get('urlImage');
+        $data->url = $request->url;
 
-        $data->description = $request->get('description');
+        $data->urlImage = $request->urlImage;
 
-        $data->content = $request->get('content');
+        $data->description = $request->description;
 
-        $data->date = $request->get('date');
+        $data->content = $request->content;
+
+        $data->date = $request->date;
 
         $data->save();
+        $news = News::all();
 
-        return back()->with('message', 'La noticia ha sido actualizada');
+        return redirect('listnews')->with('message', 'La noticia ha sido actualizada');
     }
 
     /**
@@ -151,10 +155,12 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = News::find($id);
+        $data->delete();
+        return redirect('listnews');
     }
 
-    public function addData(Request $req)
+    /*public function addData(Request $req)
     {
         // Registers a News
         $news= new News;
@@ -188,5 +194,5 @@ class NewsController extends Controller
 
         //redirects the page into the same
         return redirect('add');
-    }
+    }*/
 }
