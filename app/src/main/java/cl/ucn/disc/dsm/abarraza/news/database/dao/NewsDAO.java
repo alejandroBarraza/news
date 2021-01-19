@@ -11,6 +11,10 @@ import java.util.List;
 
 import cl.ucn.disc.dsm.abarraza.news.model.News;
 
+/**
+ *  the NewsDAO class
+ *  @author Diego Calderón
+ */
 @Dao
 public interface NewsDAO {
 
