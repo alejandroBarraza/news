@@ -64,6 +64,11 @@ public class MainActivity extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout;
 
     /**
+     * the database
+     */
+    AppDatabase db = AppDatabase.getInstance(this.getApplicationContext());
+
+    /**
      * On create
      * @param savedInstanceState used to realod the app
      */
@@ -81,9 +86,6 @@ public class MainActivity extends AppCompatActivity {
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
         });
-
-        //Database
-        AppDatabase db = AppDatabase.getInstance(this.getApplicationContext());
 
         //the toolbar
         this.setSupportActionBar(findViewById(R.id.am_t_toolbar));
