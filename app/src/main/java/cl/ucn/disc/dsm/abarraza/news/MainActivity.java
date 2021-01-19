@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * the database
      */
-    AppDatabase db = AppDatabase.getInstance(this.getApplicationContext());
+    AppDatabase db;
 
     /**
      * On create
@@ -106,6 +106,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
 
+        // database instance
+        db = AppDatabase.getInstance(this.getApplicationContext());
+
         if (!isConnected(this)) {
             Toast.makeText(MainActivity.this, "No hay conexion a internet, se mostraran noticias antiguas", Toast.LENGTH_LONG).show();
             listNews = db.newsDAO().getAll();
@@ -142,10 +145,7 @@ public class MainActivity extends AppCompatActivity {
                         swipeRefreshLayout.setRefreshing(false);
                     }
             );
-
         }
-
-
     }
 
     /**
@@ -183,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
                 for( LaravelNews laravelNews: newsListApiLaravel){
                     //display the news after.
                 }
-
             }
 
             @Override
@@ -191,8 +190,6 @@ public class MainActivity extends AppCompatActivity {
                 //insert failure process
             }
         });
-
-
     }
 
 }
