@@ -4,6 +4,10 @@ import androidx.room.TypeConverter;
 
 import org.threeten.bp.ZonedDateTime;
 
+/**
+ *  the ZonedDateTimeConverter class
+ *  @author Diego Calderón
+ */
 public class ZonedDateTimeConverter {
         @TypeConverter
         public static ZonedDateTime toDate(String dateString) {
