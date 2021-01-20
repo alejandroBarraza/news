@@ -99,8 +99,8 @@ class NewsController extends Controller
      */
     public function show()
     {
-        $data = News::orderBy('publishedAt', 'DESC') -> paginate(10);
-        return view('listnews', ['news' => $data]);
+        $data = News::orderBy('date', 'DESC') -> paginate(10);
+        return view('listnews', ['newslist' => $data]);
     }
 
     /**
@@ -163,39 +163,4 @@ class NewsController extends Controller
         return redirect('listnews');
     }
 
-    /*public function addData(Request $req)
-    {
-        // Registers a News
-        $news= new News;
-
-        // Registers the title of the news
-        $news->title=$req->title;
-
-        // Registers the source of the news
-        $news->source=$req->source;
-
-        // Registers the author of the news
-        $news->author=$req->author;
-
-        // Registers the url of the news
-        $news->url=$req->url;
-
-        // Registers the url image of the news
-        $news->urlImage=$req->urlImage;
-
-        // Registers the description of the news
-        $news->description=$req->description;
-
-        // Registers the content of the news
-        $news->content=$req->content;
-
-        // Registers the date of the news
-        $news->date=$req->date;
-
-        // Saves the news into the store function
-        $news->save();
-
-        //redirects the page into the same
-        return redirect('add');
-    }*/
 }
