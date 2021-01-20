@@ -17,6 +17,7 @@ class NewsController extends Controller
     {
         // SELECT * FROM news
         $news = News::all();
+        $news= News::paginate(10);
 
         //Return the get request with code 200
         $response = APIHelpers::createAPIResponse(false, 200, '', $news);
