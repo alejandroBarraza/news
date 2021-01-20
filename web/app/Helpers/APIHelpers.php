@@ -4,6 +4,15 @@ namespace App\Helpers;
 
 class APIHelpers {
 
+    /**
+     * Creates an API response from the data.
+     *
+     * @param $is_error
+     * @param $code
+     * @param $message
+     * @param $content
+     * @return array
+     */
     public static function createAPIResponse($is_error, $code, $message, $content){
 
         $result = [];
