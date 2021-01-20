@@ -55,7 +55,6 @@
                 <table id="editable" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Titulo</th>
                         <th>Autor</th>
                         <th>Fuente</th>
@@ -69,7 +68,6 @@
                     <tbody>
                     @foreach($newslist as $news)
                         <tr>
-                            <td>{{ $news['id']}}</td>
                             <td>{{ $news['title']}}</td>
                             <td>{{ $news['author']}}</td>
                             <td>{{ $news['source']}}</td>
@@ -79,7 +77,6 @@
                             <td>{{ $news['content']}}</td>
                             <td>{{ $news['date']}}</td>
                             <td>
-                                <!--<a href="{{ "edit/".$news['id']}}" class="btn btn-dark">Editar</a>-->
                                 <a href="{{ "delete/".$news['id']}}" class="btn btn-danger">Eliminar</a>
                             </td>
                         </tr>
