@@ -18,16 +18,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Routes the listnews with the show function
 Route::get('listnews', [NewsController::class,'show']);
 
+// Routes the delete option with the destroy function
 Route::get('delete/{id}', [NewsController::class,'destroy']);
 
+// Routes the edit option with the edit function
 Route::get('edit/{id}', [NewsController::class,'edit']);
 
+// Routes the edit with the update function
 Route::post('edit', [NewsController::class,'update']);
 
+// Routes the addnews with the addnews view
 Route::view('addnews','addnews');
 
+// Routes the addnews with the store function
 Route::post('addnews',[NewsController::class, 'store']);
 
 Route::get('tabledit', [App\Http\Controllers\TableditController::class, 'index'])->name('tabledit');
