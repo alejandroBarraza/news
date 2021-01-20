@@ -28,20 +28,24 @@
 <!-- NavBar -->
 <div class="navBar2" id="app">
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #000000">
-        <!-- Logo News -->
+
+        <!-- News Logo -->
         <a class="navbar-brand" href="{{ url('/')}}">
             <img src="/img/icon.png" alt="" width="30" height="30" class="d-inline-block align-top icon">
             News
         </a>
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
-            <!-- Lado derecho de la barra de navegación -->
+            <!-- Right side of the navbar -->
             <ul class="nav navbar-nav ml-auto">
-                <!-- Links de autenticación -->
 
+                <!-- Redirect links -->
                 <li class="nav-item">
                     <a class="nav-link" href="/listnews">Lista de Noticias</a>
+                </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="/api/news">JSON</a>
                 </li>
             </ul>
         </div>
@@ -52,6 +56,7 @@
 <div class="container container-form">
     <h1>Registrar Noticias</h1>
 
+    <!-- Validates all data to be inserted before registering a new news -->
     @if($errors -> any())
         <div class="alert alert-danger">
             <ul>
@@ -67,10 +72,10 @@
         @csrf
 
         <div class="form-group">
-            <label for="title" class="col-sm-2 ">Titulo</label>
+            <label for="title" class="col-sm-2 ">Título</label>
             <div>
 
-                <input type="text" class="form-control" name="title" placeholder="Inserte un titulo"
+                <input type="text" class="form-control" name="title" placeholder="Inserte un título"
                 >
             </div>
 
@@ -112,10 +117,10 @@
         </div>
 
         <div class="form-group">
-            <label for="description" class="col-sm-2 col-form-label">Descripcion</label>
+            <label for="description" class="col-sm-2 col-form-label">Descripción</label>
             <div>
 
-                <input type="text" class="form-control" name="description" placeholder="Inserte una descripcion de la noticia" >
+                <input type="text" class="form-control" name="description" placeholder="Inserte una descripción de la noticia" >
 
             </div>
         </div>
@@ -134,7 +139,7 @@
         $date_actual = date("d-m-Y H:i:s");
         ?>
         <div class="form-group">
-            <label for="date" class="col-sm-2 col-form-label">Fecha de Publicacion</label>
+            <label for="date" class="col-sm-2 col-form-label">Fecha de Publicación</label>
             <div>
                 <input type="text" class="form-control" name="date" type="datetime" value="<?= $date_actual?>">
             </div>
@@ -145,7 +150,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-10">
-                <button type="submit" class="btn btn-dark">Save News</button>
+                <button type="submit" class="btn btn-dark">Registrar Noticia</button>
             </div>
         </div>
     </form>
@@ -158,7 +163,7 @@
 
 <footer>
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3 footer-text">Desarrollo de Soluciones Moviles II-2020:
+    <div class="footer-copyright text-center py-3 footer-text">Desarrollo de Soluciones Móviles II-2020:
         <a style="color: #000000" href="https://www.ucn.cl/"> Universidad Católica del Norte</a>
     </div>
     <!-- Copyright -->
