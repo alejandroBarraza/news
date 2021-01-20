@@ -19,13 +19,9 @@ class NewsController extends Controller
         $news = News::all();
         $news= News::paginate(10);
 
-        //Return the get request with code 200
+        //Returns the get request with code status 200 and calls the creation of the api response
         $response = APIHelpers::createAPIResponse(false, 200, '', $news);
         return response()->json($response, 200);
-        /*return response([
-            'message' =>'Retrieved Successfully',
-            'news' => $news
-        ],200);*/
     }
 
     /**
@@ -46,7 +42,7 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        // The validation of the required
+        // Validates all data that is required
         $this->validate($request, [
             'title' => 'required',
             'author' => 'required',
@@ -60,35 +56,35 @@ class NewsController extends Controller
         // Creates a News
         $news = new News();
 
-        // Get  the title of the news
+        // Gets the title of the news
         $news->title = $request->input('title');
 
-        // Get the author of the news
+        // Gets the author of the news
         $news->author = $request->input('author');
 
-        // Get the source of the news
+        // Gets the source of the news
         $news->source = $request->input('source');
 
-        // Get the URL of the news
+        // Gets the url of the news
         $news->url = $request->input('url');
 
-        // Get the URL image of the news
+        // Gets the url image of the news
         $news->urlImage = $request->input('urlImage');
 
-        // Get the description of the news
+        // Gets the description of the news
         $news->description = $request->input('description');
 
-        // Get the content of the news
+        // Gets the content of the news
         $news->content = $request->input('content');
 
-        // Get the publish date of the news
+        // Gets the publish date of the news
         $news->date = $request->input('date');
 
-        // Save the news into database
+        // Saves the news into database
         $news->save();
         $news = News::all();
 
-        return back()->with('message', 'Se ha agregado la noticia correctamente!');
+        return back()->with('message', 'Se ha agregado la noticia exitosamente!');
     }
 
 
@@ -100,6 +96,7 @@ class NewsController extends Controller
      */
     public function show()
     {
+        // Displays the data in a descending way by the date row
         $data = News::orderBy('date', 'DESC') -> paginate(10);
         return view('listnews', ['newslist' => $data]);
     }
@@ -112,9 +109,9 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
+        // Finds the data by the id to edit
         $data = News::find($id);
         return view('edit', ['data'=>$data]);
-        //return back()->with('message', 'Se ha modificado la noticia correctamente!');
     }
 
     /**
@@ -126,29 +123,38 @@ class NewsController extends Controller
      */
     public function update(Request $request)
     {
-
+        // Finds the data by the id to update
         $data = News::find($request -> id);
 
+        // Gets the title of the news
         $data->title = $request->title;
 
+        // Gets the author of the news
         $data->author = $request->author;
 
+        // Gets the source of the news
         $data->source = $request->source;
 
+        // Gets the url of the news
         $data->url = $request->url;
 
+        // Gets the url image of the news
         $data->urlImage = $request->urlImage;
 
+        // Gets the description of the news
         $data->description = $request->description;
 
+        // Gets the content of the news
         $data->content = $request->content;
 
+        // Gets the date of the news
         $data->date = $request->date;
 
+        // Saves the news into database
         $data->save();
         $news = News::all();
 
-        return redirect('listnews')->with('message', 'La noticia ha sido actualizada');
+        return redirect('listnews')->with('message', 'La noticia ha sido actualizada exitosamente!');
     }
 
     /**
@@ -159,6 +165,7 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
+        // Finds the data by the id to delete
         $data = News::find($id);
         $data->delete();
         return redirect('listnews');
