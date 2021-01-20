@@ -14,18 +14,32 @@
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
-    <title>Tabla News</title>
+    <title>Tabla de Noticias</title>
 </head>
 <body>
 
-<nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+<!-- NavBar -->
+<div class="navBar2" id="app">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #000000">
+        <!-- Logo News -->
+        <a class="navbar-brand" href="{{ url('/')}}">
             <img src="/img/icon.png" alt="" width="30" height="30" class="d-inline-block align-top icon">
             News
         </a>
-    </div>
-</nav>
+
+        <div class="collapse navbar-collapse" id="app-navbar-collapse">
+            <!-- Lado derecho de la barra de navegación -->
+            <ul class="nav navbar-nav ml-auto">
+                <!-- Links de autenticación -->
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/addnews">Registrar Noticia</a>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
 
 <div class="container">
     <br />
@@ -53,7 +67,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($news as $news)
+                    @foreach($newslist as $news)
                         <tr>
                             <td>{{ $news['id']}}</td>
                             <td>{{ $news['title']}}</td>
@@ -65,13 +79,18 @@
                             <td>{{ $news['content']}}</td>
                             <td>{{ $news['date']}}</td>
                             <td>
-                                <a href="{{ "edit/".$news['id']}}" class="btn btn-dark">Editar</a>
+                                <!--<a href="{{ "edit/".$news['id']}}" class="btn btn-dark">Editar</a>-->
                                 <a href="{{ "delete/".$news['id']}}" class="btn btn-danger">Eliminar</a>
                             </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
+                <div class="text-xs-center">
+                    <ul class="pagination justify-content-center">
+                        {{$newslist->onEachSide(5)->links()}}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
