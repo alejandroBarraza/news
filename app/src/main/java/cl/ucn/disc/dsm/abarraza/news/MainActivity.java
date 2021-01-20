@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,6 +53,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class MainActivity extends AppCompatActivity {
+    //json text
+    private TextView mJsonTxtView;
+
+
     /**
      * the listview
      */
@@ -76,6 +81,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //apilarevel
+        //mJsonTxtView = findViewById(R.id.jsonText);
+        //getPosts();
+
 
         /**
          * night/day mode switch,display after swipe the switch.
@@ -126,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     swipeRefreshLayout.setRefreshing(false);
                 }
         );
+
     }
 
     /**
@@ -149,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void getPosts(){
         Retrofit retrofit = new Retrofit.Builder()
+                //FIX: change with laravelapi
                 .baseUrl("https://jsonplaceholder.typicode.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -159,17 +171,33 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<LaravelNews>> call, Response<List<LaravelNews>> response) {
                 if(!response.isSuccessful()){
                     //insert failure message.
+                    mJsonTxtView.setText("Codigo: " + response.code());
+                    return;
                 }
                 //insert succes method.
                 List<LaravelNews> newsListApiLaravel =  response.body();
                 for( LaravelNews laravelNews: newsListApiLaravel){
                     //display the news after.
+                    String content = "";
+                    //refill after with real data fro api
+                    content += "id" +laravelNews.getId() + "\n";
+                    content += "title"+laravelNews.getTitle() + "\n";
+                    content += "author"+laravelNews.getAuthor() + "\n";
+                    content += "source"+laravelNews.getSource() + "\n";
+                    content += "url"+laravelNews.getUrl() + "\n";
+                    content += "urlImage"+laravelNews.getUrlImage() + "\n";
+                    content += "description"+laravelNews.getDescription() + "\n";
+                    content += "content"+laravelNews.getContent() + "\n";
+                    content += "date"+laravelNews.getDate() + "\n\n";
+                    mJsonTxtView.append(content);
+
                 }
             }
 
             @Override
             public void onFailure(Call<List<LaravelNews>> call, Throwable t) {
                 //insert failure process
+                mJsonTxtView.setText(t.getMessage());
             }
         });
     }
