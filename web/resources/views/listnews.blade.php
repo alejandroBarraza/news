@@ -11,7 +11,6 @@
     <link href="/css/style.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
     <title>Tabla de Noticias</title>
@@ -21,20 +20,25 @@
 <!-- NavBar -->
 <div class="navBar2" id="app">
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #000000">
-        <!-- Logo News -->
+
+        <!-- News Logo -->
         <a class="navbar-brand" href="{{ url('/')}}">
             <img src="/img/icon.png" alt="" width="30" height="30" class="d-inline-block align-top icon">
             News
         </a>
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
-            <!-- Lado derecho de la barra de navegación -->
-            <ul class="nav navbar-nav ml-auto">
-                <!-- Links de autenticación -->
 
+            <!-- Right side of the navbar -->
+            <ul class="nav navbar-nav ml-auto">
+
+                <!-- Redirect links -->
                 <li class="nav-item">
                     <a class="nav-link" href="/addnews">Registrar Noticia</a>
+                </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="/api/news">JSON</a>
                 </li>
             </ul>
         </div>
@@ -55,12 +59,12 @@
                 <table id="editable" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Titulo</th>
+                        <th>Título</th>
                         <th>Autor</th>
                         <th>Fuente</th>
                         <th>Url</th>
                         <th>Url de la Imagen</th>
-                        <th>Descripcion</th>
+                        <th>Descripción</th>
                         <th>Contenido</th>
                         <th>Fecha</th>
                     </tr>
@@ -77,6 +81,7 @@
                             <td>{{ $news['content']}}</td>
                             <td>{{ $news['date']}}</td>
                             <td>
+                                <!-- Delete Button -->
                                 <a href="{{ "delete/".$news['id']}}" class="btn btn-danger">Eliminar</a>
                             </td>
                         </tr>
@@ -98,7 +103,7 @@
 
 <footer>
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3 footer-text">Desarrollo de Soluciones Moviles II-2020:
+    <div class="footer-copyright text-center py-3 footer-text">Desarrollo de Soluciones Móviles II-2020:
         <a style="color: #000000" href="https://www.ucn.cl/"> Universidad Católica del Norte</a>
     </div>
     <!-- Copyright -->
