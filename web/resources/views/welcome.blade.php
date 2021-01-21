@@ -117,8 +117,8 @@
 
         <div class="form-group ">
             <label for="content" class="col-sm-2 col-form-label">Contenido</label>
+
             <div>
-                <!--<input type="text" class="form-control" name="content" placeholder="content" -->
                 <textarea type="text" class="form-control" name="content" rows="4" cols="40" value="{{old('content')}}" placeholder="Inserte el contenido de la noticia"></textarea>
             </div>
 
