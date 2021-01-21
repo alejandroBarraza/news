@@ -107,6 +107,9 @@ public class MainActivity extends AppCompatActivity {
         switch1 = findViewById(R.id.switch1);
         switch2 = findViewById(R.id.switch2);
 
+        /**
+         * change the theme (day or night)
+         */
         switch1.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked2){
                 Toast.makeText(MainActivity.this, "Antes de cambiar el tema, debe volver a las noticias de API", Toast.LENGTH_LONG).show();
@@ -176,6 +179,9 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
+        /**
+         * change where you get the news from
+         */
         switch2.setOnCheckedChangeListener((buttonView, isChecked) -> {
             isChecked2 = isChecked;
             if(isChecked){
