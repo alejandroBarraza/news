@@ -32,8 +32,9 @@ php composer.phar install
 ![newsgithub](https://user-images.githubusercontent.com/71998273/105300970-b6354380-5b99-11eb-94a2-892f1293c359.PNG)
 
 
+![modoNoche](https://user-images.githubusercontent.com/71998273/105313387-a9661f00-5b9c-11eb-9b18-42981fc27d4e.PNG)
 
-![newsgithubnight](https://user-images.githubusercontent.com/71998273/105301538-d8c75c80-5b99-11eb-90ac-e39eef4f988f.PNG)
+
 
 
 
