@@ -36,11 +36,14 @@ Route::view('addnews','addnews');
 // Routes the addnews with the store function
 Route::post('addnews',[NewsController::class, 'store']);
 
-Route::get('tabledit', [App\Http\Controllers\TableditController::class, 'index'])->name('tabledit');
+// Routes the '/' with the store function
+Route::post('/',[NewsController::class, 'store']);
 
-Route::post('tabledit/action', [App\Http\Controllers\TableditController::class, 'action'])->name('tabledit.action');
+// Routes the /live_search with the index function
+Route::get('/live_search', [\App\Http\Controllers\LiveSearch::class, 'index']);
 
-Route::post('tabledit/update/{id}', [App\Http\Controllers\TableditController::class, 'updateData'])->name('tabledit.updateData');
+// Routes the /live_search/action with the action function
+Route::get('/live_search/action', [\App\Http\Controllers\LiveSearch::class, 'action'])->name('listnews.action');
 
 Auth::routes();
 
