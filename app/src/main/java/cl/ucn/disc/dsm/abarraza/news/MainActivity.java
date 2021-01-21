@@ -10,6 +10,7 @@
 
 package cl.ucn.disc.dsm.abarraza.news;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -33,6 +34,7 @@ import com.mikepenz.fastadapter.adapters.ModelAdapter;
 
 import java.util.List;
 import java.util.ListIterator;
+import java.util.stream.Collectors;
 
 import cl.ucn.disc.dsm.abarraza.news.activities.NewsItem;
 import cl.ucn.disc.dsm.abarraza.news.database.AppDatabase;
@@ -77,6 +79,22 @@ public class MainActivity extends AppCompatActivity {
      */
     AppDatabase db;
 
+    /**
+     * switch for change between
+     */
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    Switch switch2;
+
+    /**
+     * night/day mode switch,display after swipe the switch.
+     */
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    Switch switch1;
+
+    /**
+     * boolean for switch2
+     */
+    boolean isChecked2 = false;
 
     /**
      * On create
@@ -86,14 +104,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        switch1 = findViewById(R.id.switch1);
+        switch2 = findViewById(R.id.switch2);
 
-
-        /**
-         * night/day mode switch,display after swipe the switch.
-         */
-
-        Switch switch1 = findViewById(R.id.switch1);
         switch1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked2){
+                Toast.makeText(MainActivity.this, "Antes de cambiar el tema, debe volver a las noticias de API", Toast.LENGTH_LONG).show();
+                if(isChecked)
+                    switch1.setChecked(false);
+                else
+                    switch1.setChecked(true);
+                return;
+            }
+
             if(isChecked){
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             }else{
@@ -141,37 +164,32 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(
                 () -> {
                     newsAdapter.clear();
-                    findNews(newsAdapter);
+                    if(listNews.size() > 0);
+                        listNews.clear();
+                    if(isChecked2)
+                        getPosts(newsAdapter);
+                    else
+                        findNews(newsAdapter);
                     fastAdapter.notifyAdapterDataSetChanged();
                     Toast.makeText(MainActivity.this, "Loading..", Toast.LENGTH_LONG).show();
                     swipeRefreshLayout.setRefreshing(false);
                 }
         );
 
-        /**
-         * switch for change between
-         */
-        Switch switch2 = findViewById(R.id.switch2);
         switch2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            isChecked2 = isChecked;
             if(isChecked){
-                listNews.clear();
+                if(listNews.size() > 0);
+                    listNews.clear();
                 getPosts(newsAdapter);
-                //setContentView(R.layout.laravel_news);
-                //mJsonTxtView = findViewById(R.id.jsonText);
-
                 newsAdapter.clear();
-                AsyncTask.execute(() ->{
-                    //set the adapter!
-                    runOnUiThread(()->{
-                        newsAdapter.add(listNews);
-                    });
-                });
             }else{
-
+                if(listNews.size() > 0);
+                    listNews.clear();
+                newsAdapter.clear();
+                findNews(newsAdapter);
             }
         });
-
-
     }
 
     /**
@@ -195,7 +213,6 @@ public class MainActivity extends AppCompatActivity {
      */
     private void getPosts(ModelAdapter<News, NewsItem> newsAdapter){
         Retrofit retrofit = new Retrofit.Builder()
-                //FIX: change with laravelapi
                 .baseUrl("http://10.0.2.2:8000/api/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
@@ -216,23 +233,25 @@ public class MainActivity extends AppCompatActivity {
                             laravelNews.getDescription(),laravelNews.getContent(),
                             toDate(laravelNews.getDate()));
 
-                    Log.w("debug" ,"Titulo: " + laravelNews.getTitle() + ", fuente:"
-                            + laravelNews.getSource());
-
                     listNews.add(news);
-                    AsyncTask.execute(() ->{
-                        //set the adapter!
-                        runOnUiThread(()->{
-                            newsAdapter.add(listNews);
-                        });
-                    });
                 }
+                AsyncTask.execute(() ->{
+                    //set the adapter!
+                    runOnUiThread(()->{
+                        newsAdapter.add(listNews.stream()
+                                //sort the stream by pusblishdedAt
+                                .sorted((k1,k2)->k2.getPublishedAt().compareTo(k1.getPublishedAt()))
+                                //Return the stream to list.
+                                .collect(Collectors.toList()));
+                    });
+                });
             }
 
             @Override
             public void onFailure(Call<List<LaravelNews>> call, Throwable t) {
                 //insert failure process
                 Log.w("error", "No se logro acceder a la pagina web" +t.getMessage());
+                Toast.makeText(MainActivity.this, "No hay conexion a internet, se mostraran noticias antiguas", Toast.LENGTH_LONG).show();
             }
         });
     }
