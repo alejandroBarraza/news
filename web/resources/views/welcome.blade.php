@@ -126,7 +126,7 @@
 
         <?php
         date_default_timezone_set('America/Santiago');
-        $date_actual = date("d-m-Y H:i:s");
+        $date_actual = date('c');
         ?>
         <div class="form-group">
             <label for="date" class="col-sm-2 col-form-label">Fecha de Publicación</label>
