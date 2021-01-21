@@ -10,180 +10,154 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
-    <title>Bienvenido a "The News"</title>
+    <title>Registrar Noticias</title>
 </head>
 
-
-<!--<body>
-<nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="/img/icon.png" alt="" width="30" height="30" class="d-inline-block align-top icon">
-            News
-        </a>
-    </div>
-
-</nav>
-
-<body>-->
+<body>
 
 <!-- NavBar -->
 <div class="navBar2" id="app">
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #000000">
-        <!-- Logo News -->
+
+        <!-- News Logo -->
         <a class="navbar-brand" href="{{ url('/')}}">
             <img src="/img/icon.png" alt="" width="30" height="30" class="d-inline-block align-top icon">
             News
         </a>
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
-            <!-- Lado derecho de la barra de navegación -->
+            <!-- Right side of the navbar -->
             <ul class="nav navbar-nav ml-auto">
-                <!-- Links de autenticación -->
 
+                <!-- Redirect links -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('register') }}">Register <span class="sr-only"></span></a>
+                    <a class="nav-link" href="/listnews">Lista de Noticias</a>
                 </li>
 
-                @guest
-
-                @else
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home') }}">Home <span class="sr-only"></span></a>
-                    </li>
-
-                    <!-- Si el usuario es un administrador... -->
-                    @if(Auth::user()->rol === 'Administrador' )
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.index') }}">Administrar usuarios<span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.index') }}">Administrar usuarios<span class="sr-only">(current)</span></a>
-                        </li>
-                @endif
-
-                <!-- CERRAR SESIÓN -->
-                    <div class="dropdown">
-                        <button style="color: rgba(255,255,255,.75)" class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ Auth::user()->name }}
-                        </button>
-
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <!-- El botón activa el formulario que permite el logout -->
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                Salir
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
-                        </div>
-                    </div>
-            @endguest
-
+                <li class="nav-item">
+                    <a class="nav-link" href="/api/news">JSON</a>
+                </li>
+            </ul>
         </div>
     </nav>
 </div>
-@auth
 
-@endauth
-<!-- Si el usuario no está logueado -->
 
-@guest
-    <div class="container element2">
-        <div class="row justify-content-center">
-            <div class="col-md-5">
-                <div class="card border-secondary">
+<div class="container container-form">
+    <h1>Registrar Noticias</h1>
 
-                    <div class="card-header text-center">
-                        <strong>Ingreso al sistema "The News"</strong>
-                    </div>
-                    <div class="card-body">
+    <!-- Validates all data to be inserted before registering a new news -->
+    @if($errors -> any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors-> all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-                        <form class="form-horizontal" method="POST" action="{{ route('login') }}">
-                            {{ csrf_field() }}
+    <form action="#" method="POST">
 
-                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+        @csrf
 
-                                <div class="col-md-9 mx-auto">
-                                    <div class="input-group">
+        <div class="form-group">
+            <label for="title" class="col-sm-2 ">Título</label>
+            <div>
 
-                                        <input id="email" type="email" placeholder="Correo Electrónico" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                <input type="text" class="form-control" name="title" placeholder="Inserte un título"
+                >
+            </div>
 
-                                        @if ($errors->has('email'))
-                                            <span class="help-block">
-                                            <strong>{{ $errors->first('email') }}</strong>
-                                        </span>
-                                        @endif
-                                    </div>
-                                </div>
+        </div>
 
-                                <br>
+        <div class="form-group">
+            <label for="author" class="col-form-label">Autor</label>
+            <div>
 
-                                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-
-                                    <div class="col-md-9 mx-auto">
-                                        <input id="password" placeholder="Contraseña" type="password" class="form-control " name="password" required>
-
-                                        @if ($errors->has('password'))
-                                            <span class="help-block">
-                                            <strong>{{ $errors->first('password') }}</strong>
-                                        </span>
-                                        @endif
-
-                                    </div>
-                                </div>
-
-                                <br>
-
-                                <div class="form-group row">
-                                    <div class="col-md-6 offset-md-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                            <label class="form-check-label" for="remember">
-                                                {{ __('Recuérdame') }}
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group text-center">
-
-                                    <button type="submit" class="btn btn-dark">
-                                        Ingresar
-                                    </button>
-
-                                    @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            {{ __('Olvidó su contraseña?') }}
-                                        </a>
-                                    @endif
-                                </div>
-                        </form>
-                    </div>
-                </div>
+                <input type="text" class="form-control" name="author" placeholder="Inserte un autor"
+                >
             </div>
         </div>
-    </div>
-@endguest
+
+        <div class="form-group">
+            <label for="source" class="col-sm-2 col-form-label">Fuente</label>
+            <div>
+
+                <input type="text" class="form-control" name="source" placeholder="Inserte la fuente de la noticia"
+                >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="url" class="col-sm-2 col-form-label">URL</label>
+            <div>
+
+                <input type="text" class="form-control" name="url" placeholder="Inserte la url de la noticia ">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="urlImage" class="col-sm-2 col-form-label">URL de la Imagen</label>
+
+            <div>
+
+                <input type="text" class="form-control" name="urlImage" placeholder="Inserte la url de la imagen de la noticia" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description" class="col-sm-2 col-form-label">Descripción</label>
+            <div>
+
+                <input type="text" class="form-control" name="description" placeholder="Inserte una descripción de la noticia" >
+
+            </div>
+        </div>
+
+        <div class="form-group ">
+            <label for="content" class="col-sm-2 col-form-label">Contenido</label>
+            <div>
+                <!--<input type="text" class="form-control" name="content" placeholder="content" -->
+                <textarea type="text" class="form-control" name="content" rows="4" cols="40" value="{{old('content')}}" placeholder="Inserte el contenido de la noticia"></textarea>
+            </div>
+
+        </div>
+
+        <?php
+        date_default_timezone_set('America/Santiago');
+        $date_actual = date("d-m-Y H:i:s");
+        ?>
+        <div class="form-group">
+            <label for="date" class="col-sm-2 col-form-label">Fecha de Publicación</label>
+            <div>
+                <input type="text" class="form-control" name="date" type="datetime" value="<?= $date_actual?>">
+            </div>
+        </div>
+
+        <div>
+            <br/>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-dark">Registrar Noticia</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
 
 <footer>
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3 footer-text">Desarrollo de Soluciones Moviles II-2020:
+    <div class="footer-copyright text-center py-3 footer-text">Desarrollo de Soluciones Móviles II-2020:
         <a style="color: #000000" href="https://www.ucn.cl/"> Universidad Católica del Norte</a>
     </div>
     <!-- Copyright -->
 </footer>
 
-
-
 </body>
-
 </html>
-
-<script src="{{ asset('js/app.js') }}"></script>
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
