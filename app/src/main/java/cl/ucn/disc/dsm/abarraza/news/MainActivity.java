@@ -46,6 +46,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import cl.ucn.disc.dsm.abarraza.news.utils.ZonedDateTimeConverter;
+
+import static cl.ucn.disc.dsm.abarraza.news.utils.ZonedDateTimeConverter.toDate;
 
 /**
  * the main class
@@ -66,12 +69,14 @@ public class MainActivity extends AppCompatActivity {
      * the listNews
      */
     List<News> listNews;
+
     SwipeRefreshLayout swipeRefreshLayout;
 
     /**
      * the database
      */
     AppDatabase db;
+
 
     /**
      * On create
@@ -81,10 +86,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //apilarevel
-        //mJsonTxtView = findViewById(R.id.jsonText);
-        //getPosts();
 
 
         /**
@@ -100,26 +101,36 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //the toolbar
+        /**
+         * the toolbar
+         */
         this.setSupportActionBar(findViewById(R.id.am_t_toolbar));
 
-        //new one
+        /**
+         * referesh layout
+         */
         swipeRefreshLayout = (SwipeRefreshLayout
                 ) findViewById(R.id.am_swl_refresh);
 
-        //the fast adapter
+        /**
+         * the fast adapter
+         */
         ModelAdapter<News, NewsItem> newsAdapter = new ModelAdapter<>(NewsItem::new);
         FastAdapter<NewsItem> fastAdapter = FastAdapter.with(newsAdapter);
         fastAdapter.withSelectable(false);
 
-        //the recycling view.
+        /**
+         * the recycling view
+         */
         RecyclerView recyclerView = findViewById(R.id.am_rv_news);
         recyclerView.setAdapter(fastAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
 
-        // database instance
+        /**
+         * the database instance
+         */
         db = AppDatabase.getInstance(this.getApplicationContext());
         
         findNews(newsAdapter);
@@ -136,6 +147,30 @@ public class MainActivity extends AppCompatActivity {
                     swipeRefreshLayout.setRefreshing(false);
                 }
         );
+
+        /**
+         * switch for change between
+         */
+        Switch switch2 = findViewById(R.id.switch2);
+        switch2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked){
+                listNews.clear();
+                getPosts(newsAdapter);
+                //setContentView(R.layout.laravel_news);
+                //mJsonTxtView = findViewById(R.id.jsonText);
+
+                newsAdapter.clear();
+                AsyncTask.execute(() ->{
+                    //set the adapter!
+                    runOnUiThread(()->{
+                        newsAdapter.add(listNews);
+                    });
+                });
+            }else{
+
+            }
+        });
+
 
     }
 
@@ -158,46 +193,46 @@ public class MainActivity extends AppCompatActivity {
     /**
      * bring data from laravelapi
      */
-    private void getPosts(){
+    private void getPosts(ModelAdapter<News, NewsItem> newsAdapter){
         Retrofit retrofit = new Retrofit.Builder()
                 //FIX: change with laravelapi
-                .baseUrl("https://jsonplaceholder.typicode.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+                .baseUrl("http://10.0.2.2:8000/api/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
         GetterApiLaravel getterApiLaravel = retrofit.create(GetterApiLaravel.class);
         Call<List<LaravelNews>> call = getterApiLaravel.getPosts();
         call.enqueue(new Callback<List<LaravelNews>>() {
             @Override
             public void onResponse(Call<List<LaravelNews>> call, Response<List<LaravelNews>> response) {
                 if(!response.isSuccessful()){
-                    //insert failure message.
-                    mJsonTxtView.setText("Codigo: " + response.code());
                     return;
                 }
                 //insert succes method.
                 List<LaravelNews> newsListApiLaravel =  response.body();
                 for( LaravelNews laravelNews: newsListApiLaravel){
-                    //display the news after.
-                    String content = "";
-                    //refill after with real data fro api
-                    content += "id" +laravelNews.getId() + "\n";
-                    content += "title"+laravelNews.getTitle() + "\n";
-                    content += "author"+laravelNews.getAuthor() + "\n";
-                    content += "source"+laravelNews.getSource() + "\n";
-                    content += "url"+laravelNews.getUrl() + "\n";
-                    content += "urlImage"+laravelNews.getUrlImage() + "\n";
-                    content += "description"+laravelNews.getDescription() + "\n";
-                    content += "content"+laravelNews.getContent() + "\n";
-                    content += "date"+laravelNews.getDate() + "\n\n";
-                    mJsonTxtView.append(content);
 
+                    News news = new News(laravelNews.getTitle(),laravelNews.getSource(),
+                            laravelNews.getAuthor(),laravelNews.getUrl(),laravelNews.getUrlImage(),
+                            laravelNews.getDescription(),laravelNews.getContent(),
+                            toDate(laravelNews.getDate()));
+
+                    Log.w("debug" ,"Titulo: " + laravelNews.getTitle() + ", fuente:"
+                            + laravelNews.getSource());
+
+                    listNews.add(news);
+                    AsyncTask.execute(() ->{
+                        //set the adapter!
+                        runOnUiThread(()->{
+                            newsAdapter.add(listNews);
+                        });
+                    });
                 }
             }
 
             @Override
             public void onFailure(Call<List<LaravelNews>> call, Throwable t) {
                 //insert failure process
-                mJsonTxtView.setText(t.getMessage());
+                Log.w("error", "No se logro acceder a la pagina web" +t.getMessage());
             }
         });
     }
@@ -209,6 +244,7 @@ public class MainActivity extends AppCompatActivity {
     public void findNews(ModelAdapter<News, NewsItem> newsAdapter){
         if (!isConnected(this)) {
             Toast.makeText(MainActivity.this, "No hay conexion a internet, se mostraran noticias antiguas", Toast.LENGTH_LONG).show();
+            //listNews.clear();
             listNews = db.newsDAO().getAll();
             AsyncTask.execute(() ->{
                 //set the adapter!
