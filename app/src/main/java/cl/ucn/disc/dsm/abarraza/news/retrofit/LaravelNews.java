@@ -4,7 +4,7 @@ import org.threeten.bp.ZonedDateTime;
 //testing with JsonPlaceholder until waiting api rest from laravel.
 public class LaravelNews {
     private int id;
-    private int title;
+    private String title;
     private String author;
     private String source;
     private String url;
@@ -17,7 +17,7 @@ public class LaravelNews {
         return id;
     }
 
-    public int getTitle() {
+    public String getTitle() {
         return title;
     }
 
