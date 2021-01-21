@@ -6,6 +6,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface GetterApiLaravel {
-    @GET("posts")
+    @GET("news")
     Call<List<LaravelNews>> getPosts();
 }
