@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -14,16 +13,7 @@
     <title>Registrar Noticias</title>
 </head>
 
-
 <body>
-<!--<nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="/img/icon.png" alt="" width="30" height="30" class="d-inline-block align-top icon">
-            News
-        </a>
-    </div>
-</nav>-->
 
 <!-- NavBar -->
 <div class="navBar2" id="app">
