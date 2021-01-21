@@ -53,6 +53,21 @@
         <div class="panel-heading">
             <h3 class="panel-title">Registro de Noticias</h3>
         </div>
+
+        <!-- Search bar -->
+        <br />
+        <div class="container box">
+            <div class="panel panel-default">
+                <div class="panel-heading">Buscar Noticias</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <input type="text" name="search" id="search" class="form-control" placeholder="Buscar una noticia" />
+                    </div>
+                    <br />
+                </div>
+            </div>
+        </div>
+
         <div class="panel-body">
             <div class="table-responsive">
                 @csrf
@@ -99,6 +114,34 @@
 </div>
 </body>
 </html>
+
+<!-- Search bar script -->
+<script>
+    $(document).ready(function(){
+
+        fetch_news_data();
+
+        function fetch_news_data(query = '')
+        {
+            $.ajax({
+                url:"{{ route('listnews.action') }}",
+                method:'GET',
+                data:{query:query},
+                dataType:'json',
+                success:function(data)
+                {
+                    $('tbody').html(data.table_data);
+                    $('#total_records').text(data.total_data);
+                }
+            })
+        }
+
+        $(document).on('keyup', '#search', function(){
+            var query = $(this).val();
+            fetch_news_data(query);
+        });
+    });
+</script>
 
 
 <footer>
